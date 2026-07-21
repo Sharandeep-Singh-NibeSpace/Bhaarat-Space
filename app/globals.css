@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #060a16;
+  color: #e2e8f0;
+}
+
+::selection {
+  background: #0ea5e9;
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.zoom-in {
+  /* animation: subtleZoom 35s ease-in-out forwards; */
+  transform-origin: center;
+  will-change: transform;
+}
+
+@keyframes subtleZoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1); /* 10% zoom — subtle and elegant */
+  }
+}
+
+.fade-bottom {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black 60%,
+    /* visible up to 60% */ transparent 90% /* fully fades out by 90% */
+  );
+  mask-image: linear-gradient(to bottom, black 60%, transparent 90%);
+  display: block;
+  width: 100%;
+  height: auto;
+}
