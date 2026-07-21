@@ -9,14 +9,14 @@ const TEAM = [
     name: "Rishi Siwach",
     role: "Chief Strategy Officer",
     image: "/images/Team/Rishi.avif",
-    bio: "Visionary leader driving India's sovereign space technology initiatives and strategic growth.",
+    // bio: "Visionary leader driving India's sovereign space technology initiatives and strategic growth.",
   },
   {
     initials: "SJ",
     name: "Siram Sai Mani Shanmukha Jayasheel",
     role: "Deputy Manager - Mission Design Engineer",
     image: "/images/Team/Jayasheel.jpeg",
-    bio: "Former ISRO scientist with 18+ years of experience in satellite systems and earth observation programs.",
+    // bio: "Former ISRO scientist with 18+ years of experience in satellite systems and earth observation programs.",
   },
   {
     initials: "SS",
@@ -24,14 +24,14 @@ const TEAM = [
     role: "Senior Officer - Software Developer",
     // No photo uploaded yet for this member — falls back to an initials avatar below.
     image: "/images/Team/Sharandeep.jpg",
-    bio: "Full-stack developer specializing in building scalable web applications, data pipelines, and digital platforms for space technology.",
+    // bio: "Full-stack developer specializing in building scalable web applications, data pipelines, and digital platforms for space technology.",
   },
   {
     initials: "AP",
     name: "Akiv Noah Pingle",
     role: "Senior Officer - Data Scientist",
     image: "/images/Team/Akiv.png",
-    bio: "Leading high-resolution imaging programs and data analytics for defense, infrastructure, and environmental sustainability.",
+    // bio: "Leading high-resolution imaging programs and data analytics for defense, infrastructure, and environmental sustainability.",
   },
 ];
 
