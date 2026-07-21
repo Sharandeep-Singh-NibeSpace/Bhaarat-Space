@@ -23,7 +23,7 @@ const TEAM = [
     name: "Sharandeep Singh",
     role: "Senior Officer - Software Developer",
     // No photo uploaded yet for this member — falls back to an initials avatar below.
-    image: null,
+    image: "/images/Team/Sharandeep.jpg",
     bio: "Full-stack developer specializing in building scalable web applications, data pipelines, and digital platforms for space technology.",
   },
   {
@@ -66,7 +66,11 @@ export default function Team() {
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, margin: "-80px" }}
-              transition={{ duration: 0.8, delay: index * 0.1, ease: EASE_SMOOTH }}
+              transition={{
+                duration: 0.8,
+                delay: index * 0.1,
+                ease: EASE_SMOOTH,
+              }}
               className="group border border-white/10 rounded-3xl overflow-hidden hover:border-sky-400/50 transition-all duration-300 hover:-translate-y-2 backdrop-blur-sm"
             >
               <div className="h-72 overflow-hidden">
