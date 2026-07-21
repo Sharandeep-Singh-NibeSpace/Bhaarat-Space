@@ -32,7 +32,7 @@ export default function Leadership() {
         transition={{ duration: 0.9, ease: EASE_SMOOTH }}
         className="text-2xl sm:text-3xl font-bold text-white text-center mb-14"
       >
-        Our Team
+        Our Leadership
       </motion.h2>
 
       <div className="max-w-5xl mx-auto space-y-6">
@@ -42,8 +42,13 @@ export default function Leadership() {
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, margin: "-80px" }}
-            transition={{ duration: 0.9, delay: index * 0.15, ease: EASE_SMOOTH }}
-            className="rounded-xl border border-white/10 bg-space-500 p-7 sm:p-8 flex flex-col sm:flex-row gap-6 sm:gap-7"
+            transition={{
+              duration: 0.9,
+              delay: index * 0.15,
+              ease: EASE_SMOOTH,
+            }}
+            className="rounded-xl border border-white/10 backdrop-blur p-7 sm:p-8 flex flex-col sm:flex-row gap-6 sm:gap-7"
+            style={{ borderRadius: "80px" }}
           >
             {/* Avatar / Photo */}
             <div className="shrink-0 flex justify-center sm:justify-start">
