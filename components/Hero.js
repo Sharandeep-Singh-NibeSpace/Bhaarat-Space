@@ -15,7 +15,7 @@ export default function Hero() {
     <section className="relative overflow-hidden">
       {/* Video background — above the fold, so it loads immediately (priority) */}
       <video
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-none"
         src="/videos/earth_bg.mp4"
         autoPlay
         muted
