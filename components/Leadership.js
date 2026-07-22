@@ -15,7 +15,7 @@ const TEAM = [
     initials: "MN",
     role: "Director",
     name: "Mrs. Manjusha Ganesh Nibe",
-    image: "/images/.avif",
+    image: "/images/Manjusha.avif", // ← update this path if different
     bio: "A Director of Bharat Space Pvt. Ltd. with extensive experience in corporate governance, business strategy, and operational leadership, Mrs. Nibe has played a key role in growing the group across manufacturing, infrastructure, and the space and defence sectors. A seasoned promoter and business leader, she previously served as Executive Director of Nibe Limited, contributing significantly to its expansion into defence component manufacturing, and continues to champion the group's commitment to innovation and India's Atmanirbhar Bharat initiatives.",
   },
 ];
@@ -30,12 +30,12 @@ export default function Leadership() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, margin: "-100px" }}
         transition={{ duration: 0.9, ease: EASE_SMOOTH }}
-        className="text-2xl sm:text-3xl font-bold text-white text-center mb-14"
+        className="text-3xl sm:text-4xl font-bold text-white text-center mb-14"
       >
         Our Leadership
       </motion.h2>
 
-      <div className="max-w-5xl mx-auto space-y-6">
+      <div className="max-w-5xl mx-auto space-y-8">
         {TEAM.map((m, index) => (
           <motion.div
             key={m.name}
@@ -47,13 +47,12 @@ export default function Leadership() {
               delay: index * 0.15,
               ease: EASE_SMOOTH,
             }}
-            className="rounded-xl border border-white/10 backdrop-blur p-7 sm:p-8 flex flex-col sm:flex-row gap-6 sm:gap-7"
-            style={{ borderRadius: "80px" }}
+            className="rounded-[80px] border border-white/10 backdrop-blur p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6 sm:gap-10"
           >
-            {/* Avatar / Photo */}
-            <div className="shrink-0 flex justify-center sm:justify-start">
-              {m.image && m.image !== "/images/.avif" ? (
-                <div className="relative w-24 h-24 sm:w-44 sm:h-48 rounded-full overflow-hidden ring-2 ring-sky-400/60 ring-offset-2 ring-offset-space-500 shadow-lg">
+            {/* Bigger Avatar / Photo */}
+            <div className="shrink-0 flex justify-center">
+              {m.image && !m.image.includes("/images/.avif") ? (
+                <div className="relative w-60 h-60 sm:w-76 sm:h-76 md:w-64 md:h-64 rounded-full overflow-hidden ring-2 ring-sky-400/70 ring-offset-4 ring-offset-[#0a0f1c] shadow-xl">
                   <img
                     src={m.image}
                     alt={m.name}
@@ -62,22 +61,22 @@ export default function Leadership() {
                   />
                 </div>
               ) : (
-                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-sky-400 to-sky-700 flex items-center justify-center text-white font-bold text-xl sm:text-2xl ring-2 ring-sky-400/40 ring-offset-2 ring-offset-space-500">
+                <div className="w-40 h-40 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-full bg-gradient-to-br from-sky-400 to-sky-700 flex items-center justify-center text-white font-bold text-3xl sm:text-4xl ring-2 ring-sky-400/50 ring-offset-4 ring-offset-[#0a0f1c]">
                   {m.initials}
                 </div>
               )}
             </div>
 
             {/* Text content */}
-            <div className="text-center sm:text-left">
-              <p className="text-[10px] uppercase tracking-wide text-sky-400 font-semibold mb-2">
+            <div className="text-center sm:text-left flex-1">
+              <p className="text-xs uppercase tracking-widest text-sky-400 font-semibold mb-2">
                 {m.role}
               </p>
-              <h3 className="text-white font-semibold text-lg sm:text-xl mb-3">
+              <h3 className="text-white font-semibold text-xl sm:text-2xl mb-4">
                 {m.name}
               </h3>
               <AnimatedText
-                className="text-slate-400 text-sm leading-relaxed"
+                className="text-slate-400 text-sm sm:text-base leading-relaxed"
                 stagger={0.006}
                 once
               >
