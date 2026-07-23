@@ -18,8 +18,8 @@ const CONTACT_CARDS = [
   {
     label: "Locations",
     value:
-      "Plot No E, 2/2, MIDC – Phase 3, Kharabwadi, Chakan Industrial Area, Pune, Maharashtra – 410501",
-    href: "https://maps.google.com/?q=Plot+No+E+2/2+MIDC+Phase+3+Kharabwadi+Chakan+Industrial+Area+Pune+Maharashtra+410501",
+      "6th-8th Floor, The Melange, Fugewadi, Seva Nagar, Dapodi, Pimpri-Chinchwad, Pune, Maharashtra 411012",
+    href: "https://maps.app.goo.gl/bWEppUcTMsMdYVKM6",
     icon: "pin",
   },
 ];

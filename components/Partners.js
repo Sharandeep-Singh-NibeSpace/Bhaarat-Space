@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 
 const PARTNERS = [
   { name: "Dhruva Space", logo: "/images/partners/DS.avif" },
+  { name: "MahaVitaran", logo: "/images/partners/Maha.png" },
+  { name: "Dhruva Space", logo: "/images/partners/DS.avif" },
   { name: "Centum Electronics", logo: "/images/partners/Centum.avif" },
   { name: "Azista Aerospace", logo: "/images/partners/Azista.svg" },
   { name: "Pixxel", logo: "/images/partners/Pixxel.avif" },

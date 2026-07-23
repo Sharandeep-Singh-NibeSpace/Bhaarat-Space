@@ -6,8 +6,8 @@ import Link from "next/link";
 const STATS = [
   { value: "2026", label: "Launch Year" },
   { value: "100%", label: "Domestic Investment" },
-  { value: "99cm", label: "Image Resolution" },
-  { value: "120min", label: "Revisit Time, Primary AOI" },
+  { value: "35cm", label: "Image Resolution" },
+  { value: ">90min", label: "Revisit Time, Primary AOI" },
 ];
 
 export default function Hero() {

@@ -8,7 +8,7 @@ const ROADMAP = [
     year: "2026",
     rows: [
       { label: "EO Satellites", value: 2, max: 40 },
-      { label: "Ground Stations", value: 1, max: 4 },
+      { label: "Ground Stations", value: 0, max: 4 },
       { label: "Image Processing Centre", value: 1, max: 2 },
       { label: "Data Centres", value: 1, max: 2 },
       { label: "Experience Centre", value: 0, max: 1 },
@@ -17,8 +17,8 @@ const ROADMAP = [
   {
     year: "2036",
     rows: [
-      { label: "SAR / EO / IR / ELINT", value: 40, max: 40 },
-      { label: "Ground Stations", value: 4, max: 4 },
+      { label: "SAR / EO / IR / ELINT", value: 22, max: 40 },
+      { label: "Ground Stations", value: 3, max: 4 },
       { label: "Data Centres", value: 2, max: 2 },
       { label: "Image Processing Centre", value: 1, max: 2 },
       { label: "Experience Centre", value: 1, max: 1 },

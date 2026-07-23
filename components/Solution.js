@@ -9,7 +9,7 @@ const SOLUTION_CARDS = [
     eyebrow: "Resolution",
     title: "SUB-METER RESOLUTION",
     desc: "Capture ultra-clear images with resolutions less than 0.5 meters, ensuring detailed analysis for strategic operations.",
-    image: "/images/1.avif",
+    image: "/images/Pune.png",
     icon: "satellite",
   },
   {
@@ -21,7 +21,7 @@ const SOLUTION_CARDS = [
   },
   {
     eyebrow: "Constellation",
-    title: "20-21 SATELLITE CONSTELLATION",
+    title: "18-22 SATELLITE CONSTELLATION",
     desc: "Leverage a robust satellite network designed for high revisit rates and extensive coverage across strategic areas of interest.",
     image: "/images/3.avif",
     icon: "radar",
