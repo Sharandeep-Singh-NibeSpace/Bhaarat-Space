@@ -19,7 +19,7 @@ const SENSORS = [
   {
     tag: "SAR",
     title: "Synthetic Aperture Radar (SAR) Satellites",
-    image: "/images/SAR_2.png",
+    image: "/images/SAR_2.svg",
     heading: "Synthetic Aperture Radar Satellites",
     points: [
       "Our SAR satellites, featuring a 100 km swath width, excel in all-weather, day-and-night Earth observation. The wide swath ensures extensive coverage, crucial for monitoring India's vast coastlines and maritime interests.",
@@ -65,7 +65,7 @@ function SensorVisual({ kind, image }) {
         <img
           src={image}
           alt={`${kind} satellite`}
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-auto object-cover "
         />
       )}
 
