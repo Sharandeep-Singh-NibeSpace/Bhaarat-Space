@@ -5,7 +5,24 @@ import { Eyebrow, AnimatedText, EASE_SMOOTH } from "./ui";
 import { useState, useEffect } from "react";
 
 const PARTNERS = [
+  { name: "BlackSky", logo: "/images/partners/blacksky-logo-white.webp" },
+  {
+    name: "Capella Space",
+    logo: "/images/partners/Capella.svg",
+  },
+  {
+    name: "Skyroot Aerospace",
+    logo: "/images/partners/Skyroot-logo.svg",
+  },
+  {
+    name: "ADRIN",
+    logo: "/images/partners/20180515_Indian_Space_Research_Organisation_Logo_svg.jpg-removebg-preview.png",
+  },
   { name: "Dhruva Space", logo: "/images/partners/DS.avif" },
+  {
+    name: "Defence Space Agency",
+    logo: "/images/partners/Defence_Space_Agency_India.png",
+  },
   { name: "MahaVitaran", logo: "/images/partners/Maha.png" },
   { name: "Dhruva Space", logo: "/images/partners/DS.avif" },
   { name: "Centum Electronics", logo: "/images/partners/Centum.avif" },
@@ -48,7 +65,7 @@ export default function Partners() {
         >
           {/* Slideshow */}
 
-          <div className="relative h-14 flex items-center justify-center overflow-hidden">
+          <div className="relative h-24 flex items-center justify-center overflow-hidden">
             {PARTNERS.map((partner, index) => (
               <motion.div
                 key={index}

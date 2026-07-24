@@ -54,7 +54,7 @@ export default function Hero() {
           minute revisit,{" "}
           <span className="text-sky-400">
             <br />
-            across all of India.
+            across primary AOI.
           </span>
         </motion.h1>
 
