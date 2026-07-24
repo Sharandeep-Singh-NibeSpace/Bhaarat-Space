@@ -14,7 +14,7 @@ const TEAM = [
     initials: "RS",
     name: "Rishi Siwach",
     role: "Chief Strategy Officer",
-    image: "/images/Team/Rishi.png",
+    image: "/images/Team/Rishi.avif",
   },
 ];
 
@@ -44,7 +44,10 @@ export default function Team() {
         </motion.p>
 
         {/* Centered equal cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto"
+          style={{ width: "fit-content" }}
+        >
           {TEAM.map((member, index) => (
             <motion.div
               key={member.name}
@@ -58,12 +61,12 @@ export default function Team() {
               }}
               className="group border border-white/10 rounded-2xl overflow-hidden hover:border-sky-400/40 transition-all duration-300 hover:-translate-y-1.5 backdrop-blur-sm flex flex-col"
             >
-              {/* Equal height image area */}
-              <div className="h-64 sm:h-72 overflow-hidden">
+              {/* Image height fits content */}
+              <div className="overflow-hidden" style={{ width: "fit-content" }}>
                 <img
                   src={member.image}
                   alt={member.name}
-                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-auto object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
 

@@ -35,7 +35,7 @@ export default function Leadership() {
         Our Leadership
       </motion.h2>
 
-      <div className="max-w-5xl mx-auto space-y-8">
+      <div className="max-w-6xl mx-auto space-y-8">
         {TEAM.map((m, index) => (
           <motion.div
             key={m.name}
@@ -52,7 +52,7 @@ export default function Leadership() {
             {/* Bigger Avatar / Photo */}
             <div className="shrink-0 flex justify-center">
               {m.image && !m.image.includes("/images/.avif") ? (
-                <div className="relative w-60 h-60 sm:w-76 sm:h-76 md:w-64 md:h-64 rounded-full overflow-hidden ring-2 ring-sky-400/70 ring-offset-4 ring-offset-[#0a0f1c] shadow-xl">
+                <div className="relative w-60 h-80 sm:w-76 sm:h-76 md:w-84 md:h-84 rounded-full overflow-hidden ring-2 ring-sky-400/70 ring-offset-4 ring-offset-[#0a0f1c] shadow-xl">
                   <img
                     src={m.image}
                     alt={m.name}

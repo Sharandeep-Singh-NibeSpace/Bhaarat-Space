@@ -135,7 +135,7 @@ export default function Solution() {
               {/* Image */}
               <div
                 className="relative overflow-hidden"
-                style={{ height: "220px" }}
+                style={{ height: "fit-content" }}
               >
                 <img
                   src={card.image}
