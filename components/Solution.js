@@ -23,7 +23,7 @@ const SOLUTION_CARDS = [
     eyebrow: "Constellation",
     title: "18-22 SATELLITE CONSTELLATION",
     desc: "Leverage a robust satellite network designed for high revisit rates and extensive coverage across strategic areas of interest.",
-    image: "/images/3.avif",
+    image: "/images/3_AI.avif",
     icon: "radar",
   },
   {
