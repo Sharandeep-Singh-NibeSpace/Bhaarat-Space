@@ -7,7 +7,7 @@ const TEAM = [
   {
     initials: "DN",
     name: "Dnyaneshwar Nibe",
-    role: "Chief Strategy Officer",
+    role: "Director",
     image: "/images/Team/Dnyaneshwar_Nibe.avif",
   },
   {
