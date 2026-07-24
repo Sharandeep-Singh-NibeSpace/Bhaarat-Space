@@ -99,7 +99,7 @@ function SolutionIcon({ icon }) {
 
 export default function Solution() {
   return (
-    <div className="relative">
+    <div className="relative" id="solution">
       <section className="py-20 px-6 relative">
         <Eyebrow>Our Solution</Eyebrow>
 
