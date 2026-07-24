@@ -49,9 +49,9 @@ export default function ContactForm() {
               Head Office
             </p>
             <p className="text-slate-300 text-sm leading-relaxed">
-              Plot No. E. 2/2, MIDC,
+              6th-8th Floor, The Melange, Fugewadi, Seva Nagar,
               <br />
-              Phase II, Chakan, Pune, Maharashtra — 410501
+              Dapodi, Pimpri-Chinchwad, Pune, Maharashtra 411012
             </p>
           </motion.div>
 
