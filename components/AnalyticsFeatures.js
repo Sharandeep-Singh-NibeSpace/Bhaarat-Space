@@ -16,6 +16,20 @@ const FEATURE_IMAGES = {
 
 const FEATURES = [
   {
+    tag: "Change Detection",
+    title: "Quantify what moved on the ground",
+    description:
+      "A comparative analysis of satellite images captured at different time intervals, highlighting critical changes such as new constructions, infrastructure damage, land shifts, or deforestation.",
+    purpose:
+      "Demonstrates the platform's ability to automatically detect and quantify temporal changes — from urban expansion tracking and disaster response to military surveillance and strategic defense monitoring.",
+    points: [
+      "Clearly highlighted change zones — red for new objects, blue for removed areas",
+      "Timestamp overlays and change heatmap visualization",
+    ],
+    note: "Defense use: spot unauthorized construction, airbase expansion, or terrain alterations in border-sensitive zones.",
+    imageLeft: false,
+  },
+  {
     tag: "Temporal Image Comparison",
     title: "See exactly what changed, and when",
     description:
@@ -77,25 +91,10 @@ const FEATURES = [
     ],
     imageLeft: true,
   },
-  {
-    tag: "Change Detection",
-    title: "Quantify what moved on the ground",
-    description:
-      "A comparative analysis of satellite images captured at different time intervals, highlighting critical changes such as new constructions, infrastructure damage, land shifts, or deforestation.",
-    purpose:
-      "Demonstrates the platform's ability to automatically detect and quantify temporal changes — from urban expansion tracking and disaster response to military surveillance and strategic defense monitoring.",
-    points: [
-      "Clearly highlighted change zones — red for new objects, blue for removed areas",
-      "Timestamp overlays and change heatmap visualization",
-    ],
-    note: "Defense use: spot unauthorized construction, airbase expansion, or terrain alterations in border-sensitive zones.",
-    imageLeft: false,
-  },
 ];
 
 function FeatureRow({ feature, index }) {
-  const { tag, title, description, purpose, points, note, imageLeft } =
-    feature;
+  const { tag, title, description, purpose, points, note, imageLeft } = feature;
   const staticImageSrc = FEATURE_IMAGES[tag];
 
   const text = (
