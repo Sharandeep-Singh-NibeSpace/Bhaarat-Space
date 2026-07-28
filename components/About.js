@@ -20,10 +20,11 @@ export default function About() {
         </h2>
 
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-          <div className="rounded-2xl aspect-square flex items-center justify-center relative overflow-hidden">
+          {/* Made slightly smaller */}
+          <div className="rounded-2xl aspect-square max-w-[280px] sm:max-w-[320px] mx-auto flex items-center justify-center relative overflow-hidden">
             <div className="w-3/3 h-1/3 rounded-full" />
             <video
-              className="absolute inset-0 w-full h-full object-cover "
+              className="absolute inset-0 w-full h-full object-cover"
               src="/videos/earth.webm"
               // poster="/videos/hero-poster.jpg"
               autoPlay

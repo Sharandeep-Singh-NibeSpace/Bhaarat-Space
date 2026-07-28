@@ -58,8 +58,8 @@ export default function Team() {
               }}
               className="group border border-white/10 rounded-2xl overflow-hidden hover:border-sky-400/40 transition-all duration-300 hover:-translate-y-1.5 backdrop-blur-sm flex flex-col w-full"
             >
-              {/* Image height fits content */}
-              <div className="overflow-hidden w-full">
+              {/* Full photo — natural height so faces are not cropped in half */}
+              <div className="overflow-hidden w-full bg-black/20">
                 <img
                   src={member.image}
                   alt={member.name}
