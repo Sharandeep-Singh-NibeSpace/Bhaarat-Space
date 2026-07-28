@@ -20,7 +20,7 @@ const TEAM = [
 
 export default function Team() {
   return (
-    <section className="py-14 px-6 relative">
+    <section className="py-12 sm:py-14 px-4 sm:px-6 relative">
       <div className="max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
@@ -44,10 +44,7 @@ export default function Team() {
         </motion.p>
 
         {/* Centered equal cards */}
-        <div
-          className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto"
-          style={{ width: "fit-content" }}
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto w-full">
           {TEAM.map((member, index) => (
             <motion.div
               key={member.name}
@@ -59,10 +56,10 @@ export default function Team() {
                 delay: index * 0.12,
                 ease: EASE_SMOOTH,
               }}
-              className="group border border-white/10 rounded-2xl overflow-hidden hover:border-sky-400/40 transition-all duration-300 hover:-translate-y-1.5 backdrop-blur-sm flex flex-col"
+              className="group border border-white/10 rounded-2xl overflow-hidden hover:border-sky-400/40 transition-all duration-300 hover:-translate-y-1.5 backdrop-blur-sm flex flex-col w-full"
             >
               {/* Image height fits content */}
-              <div className="overflow-hidden" style={{ width: "fit-content" }}>
+              <div className="overflow-hidden w-full">
                 <img
                   src={member.image}
                   alt={member.name}

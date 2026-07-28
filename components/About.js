@@ -11,7 +11,7 @@ export default function About() {
       /> */}
 
       <section
-        className="py-20 px-6"
+        className="pt-6 sm:pt-20 pb-12 sm:pb-20 px-4 sm:px-6"
         style={{ zIndex: 1, position: "relative" }}
       >
         <Eyebrow>About Us</Eyebrow>

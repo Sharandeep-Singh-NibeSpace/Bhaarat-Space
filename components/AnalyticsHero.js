@@ -5,11 +5,9 @@ import { AnimatedText, EASE_SMOOTH } from "./ui";
 
 export default function AnalyticsHero() {
   return (
-    <section className="relative min-h-screen overflow-hidden flex items-center">
-      {/* Background - Starry Space Theme */}
-      {/* Subtle Stars Overlay */}
+    <section className="relative min-h-[70vh] sm:min-h-screen overflow-hidden flex items-center">
       {/* Main Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6 pt-24 pb-20 text-center">
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 pt-16 sm:pt-24 pb-14 sm:pb-20 text-center">
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: -14, scale: 0.9 }}
@@ -32,7 +30,7 @@ export default function AnalyticsHero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.15, ease: EASE_SMOOTH }}
-          className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-white tracking-tight"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-white tracking-tight"
         >
           Turning <span className="text-sky-400">orbit data</span> into
           <br className="hidden sm:block" /> operational insight

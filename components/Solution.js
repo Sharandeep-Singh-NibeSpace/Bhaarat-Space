@@ -100,7 +100,7 @@ function SolutionIcon({ icon }) {
 export default function Solution() {
   return (
     <div className="relative" id="solution">
-      <section className="py-20 px-6 relative">
+      <section className="py-12 sm:py-20 px-4 sm:px-6 relative">
         <Eyebrow>Our Solution</Eyebrow>
 
         <motion.h2

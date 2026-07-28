@@ -133,14 +133,14 @@ function AnimatedVisionChart() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false, margin: "-60px" }}
       transition={{ duration: 0.8 }}
-      className="mt-16 rounded-xl border border-white/10 p-8 backdrop-blur relative overflow-hidden"
+      className="mt-16 rounded-xl border border-white/10 p-4 sm:p-8 backdrop-blur relative overflow-hidden"
     >
       {/* Legend */}
-      <div className="flex flex-wrap gap-x-5 gap-y-2 mb-8 text-xs text-slate-400">
+      <div className="flex flex-wrap gap-x-4 gap-y-2 mb-8 text-xs text-slate-400">
         {CATEGORIES.map((c) => (
           <div key={c.key} className="flex items-center gap-1.5">
             <span
-              className="w-2.5 h-2.5 rounded-full"
+              className="w-2.5 h-2.5 rounded-full shrink-0"
               style={{ backgroundColor: c.color }}
             />
             {c.label}
@@ -148,8 +148,8 @@ function AnimatedVisionChart() {
         ))}
       </div>
 
-      {/* Bars */}
-      <div className="space-y-3.5 relative z-10">
+      {/* Bars — stack label above bar on small screens */}
+      <div className="space-y-4 sm:space-y-3.5 relative z-10">
         <AnimatePresence mode="popLayout">
           {sorted.map((item) => (
             <motion.div
@@ -159,13 +159,18 @@ function AnimatedVisionChart() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 24 }}
               transition={{ duration: 0.4 }}
-              className="flex items-center gap-4"
+              className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-4"
             >
-              <span className="w-44 shrink-0 text-sm text-slate-300 truncate">
-                {item.label}
-              </span>
+              <div className="flex items-center justify-between sm:w-44 sm:shrink-0 gap-2">
+                <span className="text-xs sm:text-sm text-slate-300 truncate">
+                  {item.label}
+                </span>
+                <span className="sm:hidden text-xs font-bold text-white">
+                  {item.value}
+                </span>
+              </div>
 
-              <div className="relative flex-1 h-5">
+              <div className="relative flex-1 h-5 min-w-0">
                 <div className="absolute inset-0 rounded-full bg-white/5" />
                 <motion.div
                   className="absolute left-0 top-0 h-full rounded-full origin-left"
@@ -187,7 +192,7 @@ function AnimatedVisionChart() {
                   initial={{ opacity: 0, x: -6 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3, delay: 0.15 }}
-                  className="absolute top-1/2 -translate-y-1/2 text-xs font-bold text-white ml-2"
+                  className="hidden sm:block absolute top-1/2 -translate-y-1/2 text-xs font-bold text-white ml-2"
                   style={{
                     left: `calc(${(item.value / maxValue) * 100}% + 6px)`,
                   }}
@@ -212,7 +217,7 @@ function AnimatedVisionChart() {
             stiffness: 160,
             damping: 18,
           }}
-          className="absolute bottom-6 right-8 text-7xl sm:text-8xl font-bold text-white/10 select-none pointer-events-none"
+          className="absolute bottom-4 right-4 sm:bottom-6 sm:right-8 text-5xl sm:text-7xl md:text-8xl font-bold text-white/10 select-none pointer-events-none"
         >
           {currentYear}
         </motion.div>
@@ -224,7 +229,7 @@ function AnimatedVisionChart() {
 export default function Roadmap() {
   return (
     <div className="relative">
-      <section className="py-20 px-6 relative">
+      <section className="py-12 sm:py-20 px-4 sm:px-6 relative">
         <Eyebrow>Vision for the Next 10 Years</Eyebrow>
 
         <motion.h2

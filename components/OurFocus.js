@@ -20,7 +20,7 @@ const FOCUS = [
 
 export default function OurFocus() {
   return (
-    <section className="py-20 px-6">
+    <section className="py-12 sm:py-20 px-4 sm:px-6">
       <Eyebrow>Our Focus</Eyebrow>
 
       <motion.h2

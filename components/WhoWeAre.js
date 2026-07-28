@@ -5,8 +5,8 @@ import { AnimatedText, EASE_SMOOTH } from "./ui";
 
 export default function WhoWeAre() {
   return (
-    <section className="py-20 px-6">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
+    <section className="py-12 sm:py-20 px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12">
         {/* Left Column */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}

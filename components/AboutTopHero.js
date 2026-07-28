@@ -6,7 +6,7 @@ import { EASE_SMOOTH } from "./ui";
 
 export default function AboutTopHero() {
   return (
-    <section className="relative w-full h-[90vh] min-h-[420px] max-h-[720px] overflow-hidden flex items-center justify-center">
+    <section className="relative w-full h-[55vh] sm:h-[75vh] md:h-[90vh] min-h-[320px] sm:min-h-[420px] max-h-[720px] overflow-hidden flex items-center justify-center">
       {/* Full-bleed Earth video background */}
       <BgVideo
         className="w-full h-full object-cover"
@@ -24,7 +24,7 @@ export default function AboutTopHero() {
         initial={{ opacity: 0, y: 30, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 1, ease: EASE_SMOOTH }}
-        className="relative z-10 text-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold uppercase tracking-tight text-white px-6 leading-tight drop-shadow-[0_2px_20px_rgba(0,0,0,0.6)]"
+        className="relative z-10 text-center text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold uppercase tracking-tight text-white px-4 sm:px-6 leading-tight drop-shadow-[0_2px_20px_rgba(0,0,0,0.6)]"
       >
         About Bharat Space
       </motion.h1>

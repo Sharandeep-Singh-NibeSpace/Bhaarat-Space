@@ -43,7 +43,7 @@ export default function Partners() {
   }, []);
 
   return (
-    <section className="py-16 px-6">
+    <section className="py-12 sm:py-16 px-4 sm:px-6">
       <Eyebrow>Partners</Eyebrow>
 
       <motion.h2
@@ -61,11 +61,10 @@ export default function Partners() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: "-80px" }}
           transition={{ duration: 0.9, ease: EASE_SMOOTH }}
-          className="relative rounded-3xl border border-white/10 backdrop-blur-sm px-8 py-16 overflow-hidden"
+          className="relative rounded-3xl border border-white/10 backdrop-blur-sm px-4 sm:px-8 py-10 sm:py-16 overflow-hidden"
         >
           {/* Slideshow */}
-
-          <div className="relative h-24 flex items-center justify-center overflow-hidden">
+          <div className="relative h-16 sm:h-24 flex items-center justify-center overflow-hidden">
             {PARTNERS.map((partner, index) => (
               <motion.div
                 key={index}
@@ -80,12 +79,12 @@ export default function Partners() {
                         : 40,
                 }}
                 transition={{ duration: 0.7, ease: "easeInOut" }}
-                className="absolute w-full flex justify-center items-center"
+                className="absolute inset-x-0 flex justify-center items-center px-4"
               >
                 <img
                   src={partner.logo}
                   alt={partner.name}
-                  className="max-h-20 w-auto object-contain"
+                  className="max-h-12 sm:max-h-20 max-w-full w-auto object-contain"
                 />
               </motion.div>
             ))}

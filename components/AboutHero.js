@@ -10,7 +10,7 @@ export default function AboutHero() {
 
   return (
     <div className="relative overflow-hidden">
-      <section ref={sectionRef} className="py-20 px-6 relative">
+      <section ref={sectionRef} className="py-12 sm:py-20 px-4 sm:px-6 relative">
         <Eyebrow>About Us</Eyebrow>
 
         <motion.h2

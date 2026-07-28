@@ -189,7 +189,7 @@ function FeatureRow({ feature, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false, margin: "-80px" }}
       transition={{ duration: 0.9, delay: index * 0.08, ease: EASE_SMOOTH }}
-      className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center py-12"
+      className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12 items-center py-8 md:py-12"
     >
       {imageLeft ? (
         <>
@@ -208,7 +208,7 @@ function FeatureRow({ feature, index }) {
 
 export default function AnalyticsFeatures() {
   return (
-    <section className="py-20 px-6">
+    <section className="py-12 sm:py-20 px-4 sm:px-6">
       <Eyebrow>Coming Soon</Eyebrow>
 
       <motion.h2

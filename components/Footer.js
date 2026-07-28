@@ -27,7 +27,7 @@ export default function Footer() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, margin: "-60px" }}
         transition={{ duration: 0.8, ease: EASE_SMOOTH }}
-        className="border-t border-white/5 pt-10 pb-6 px-6"
+        className="border-t border-white/5 pt-8 sm:pt-10 pb-6 px-4 sm:px-6"
         style={{ zIndex: 1, position: "relative" }}
       >
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
@@ -38,7 +38,11 @@ export default function Footer() {
             transition={{ duration: 0.7, delay: 0.1, ease: EASE_SMOOTH }}
           >
             <Link href="/" className="flex items-center gap-2">
-              <img src="/images/Bharat Space2.svg" style={{ height: "70px" }} />
+              <img
+                src="/images/Bharat Space2.svg"
+                alt="Bharat Space"
+                className="h-12 sm:h-[70px] w-auto"
+              />
             </Link>
           </motion.div>
 

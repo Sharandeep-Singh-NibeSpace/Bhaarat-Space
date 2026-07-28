@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import BgVideo from "./BgVideo";
@@ -17,6 +17,10 @@ export default function NavBar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
   return (
     <header className="sticky top-0 z-50">
       {/* Background Video */}
@@ -28,13 +32,15 @@ export default function NavBar() {
       />
 
       {/* Top Bar */}
-      <div className="relative max-w-7xl mx-auto flex items-center justify-between px-5 sm:px-8 py-4">
+      <div className="relative max-w-7xl mx-auto flex items-center justify-between gap-3 px-4 sm:px-8 py-3 sm:py-4">
         {/* Logo */}
-        <img
-          src="/images/Bharat Space2.svg"
-          style={{ height: "50px" }}
-          alt="Bharat Space Logo"
-        />
+        <Link href="/" className="shrink-0">
+          <img
+            src="/images/Bharat Space2.svg"
+            className="h-10 sm:h-[50px] w-auto"
+            alt="Bharat Space Logo"
+          />
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-8 text-sm text-white drop-shadow-md">
@@ -54,41 +60,57 @@ export default function NavBar() {
           })}
         </nav>
 
-        {/* Desktop CTA */}
+        {/* Desktop CTA — hide below lg so it doesn't crowd mobile/tablet header */}
         <Link
           href="/contact"
-          className="hidden sm:inline-flex transition-colors text-white text-sm font-semibold px-5 py-2.5 rounded-md hover:bg-white/10"
+          className="hidden lg:inline-flex transition-colors text-white text-sm font-semibold px-5 py-2.5 rounded-md hover:bg-white/10"
         >
           Contact Us
         </Link>
 
         {/* Mobile Menu Button */}
         <button
+          type="button"
           className="lg:hidden text-white p-2 drop-shadow-md"
           onClick={() => setOpen(!open)}
-          aria-label="Toggle navigation"
+          aria-label={open ? "Close navigation" : "Open navigation"}
+          aria-expanded={open}
         >
-          <svg
-            width="28"
-            height="28"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-          >
-            <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="round" />
-          </svg>
+          {open ? (
+            <svg
+              width="28"
+              height="28"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
+            </svg>
+          ) : (
+            <svg
+              width="28"
+              height="28"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="round" />
+            </svg>
+          )}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {open && (
-        <div className="lg:hidden relative bg-black/60 backdrop-blur-md">
-          <div className="px-5 py-6 flex flex-col gap-4 text-lg text-white">
+        <div className="lg:hidden relative bg-black/70 backdrop-blur-md">
+          <div className="px-5 py-5 flex flex-col gap-1 text-base sm:text-lg text-white">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
-                className="hover:text-sky-400 py-2 transition-colors"
+                className="hover:text-sky-400 py-3 transition-colors"
                 onClick={() => setOpen(false)}
               >
                 {link.label}

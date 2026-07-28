@@ -84,8 +84,8 @@ export default function ContactPage() {
     "w-full bg-space-500 border border-white/10 focus:border-sky-500 outline-none rounded-md px-4 py-3.5 text-sm text-white placeholder:text-slate-500 transition-colors";
 
   return (
-    <section className="py-20 px-6">
-      <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12">
+    <section className="py-12 sm:py-20 px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-12">
         <div>
           <p className="flex items-center gap-2 text-[11px] tracking-[0.25em] uppercase text-sky-400 font-semibold mb-4">
             <span aria-hidden>☏</span> Contact Us
@@ -105,15 +105,15 @@ export default function ContactPage() {
                 href={c.href}
                 target={c.icon === "pin" ? "_blank" : undefined}
                 rel={c.icon === "pin" ? "noreferrer" : undefined}
-                className="flex items-center justify-between gap-4 rounded-xl border border-white/10 backdrop-blur hover:border-sky-700/50 transition-colors p-6"
+                className="flex items-start sm:items-center justify-between gap-3 sm:gap-4 rounded-xl border border-white/10 backdrop-blur hover:border-sky-700/50 transition-colors p-4 sm:p-6"
               >
-                <div className="flex items-center gap-4">
+                <div className="flex items-start sm:items-center gap-3 sm:gap-4 min-w-0">
                   <span className="w-11 h-11 shrink-0 rounded-lg bg-sky-900/40 border border-sky-700/40 flex items-center justify-center text-sky-300">
                     <CardIcon icon={c.icon} />
                   </span>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-slate-500 text-xs mb-1">{c.label}</p>
-                    <p className="text-white font-semibold text-sm leading-snug">
+                    <p className="text-white font-semibold text-sm leading-snug break-words">
                       {c.value}
                     </p>
                   </div>
@@ -126,7 +126,7 @@ export default function ContactPage() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-white/10 backdrop-blur p-7 sm:p-9">
+        <div className="rounded-2xl border border-white/10 backdrop-blur p-5 sm:p-9 min-w-0">
           <h2 className="text-xl sm:text-2xl font-bold text-white mb-3">
             Send Us a Message
           </h2>

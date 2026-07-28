@@ -116,7 +116,7 @@ function SensorRow({ sensor, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false, margin: "-80px" }}
       transition={{ duration: 0.9, delay: index * 0.15 }}
-      className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center py-10"
+      className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12 items-center py-8 md:py-10"
     >
       {sensor.imageLeft ? (
         <>
@@ -136,7 +136,7 @@ function SensorRow({ sensor, index }) {
 export default function Sensors() {
   return (
     <div className="relative">
-      <section id="sensors" className="py-20 px-6 scroll-mt-20 relative">
+      <section id="sensors" className="py-12 sm:py-20 px-4 sm:px-6 scroll-mt-24 relative">
         <Eyebrow>Our Multi-Mission Satellite Constellation</Eyebrow>
 
         <motion.h2

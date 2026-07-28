@@ -25,8 +25,8 @@ export default function ContactForm() {
 
   return (
     <div className="relative">
-      <section className="py-20 px-6 border-t border-white/5 relative">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-14">
+      <section className="py-12 sm:py-20 px-4 sm:px-6 border-t border-white/5 relative">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 md:gap-14">
           {/* Left Text Column */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -49,9 +49,8 @@ export default function ContactForm() {
               Head Office
             </p>
             <p className="text-slate-300 text-sm leading-relaxed">
-              6th-8th Floor, The Melange, Fugewadi, Seva Nagar,
-              <br />
-              Dapodi, Pimpri-Chinchwad, Pune, Maharashtra 411012
+              6th-8th Floor, The Melange, Fugewadi, Seva Nagar, Dapodi,
+              Pimpri-Chinchwad, Pune, Maharashtra 411012
             </p>
           </motion.div>
 
@@ -62,7 +61,7 @@ export default function ContactForm() {
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: false, margin: "-80px" }}
             transition={{ duration: 0.9, delay: 0.15 }}
-            className="rounded-2xl border border-white/10 backdrop-blur p-7 space-y-4"
+            className="rounded-2xl border border-white/10 backdrop-blur p-5 sm:p-7 space-y-4 min-w-0"
           >
             <div className="grid sm:grid-cols-2 gap-4" style={{ ZIndex: -1 }}>
               <motion.input

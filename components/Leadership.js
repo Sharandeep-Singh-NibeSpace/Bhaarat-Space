@@ -22,7 +22,7 @@ const TEAM = [
 
 export default function Leadership() {
   return (
-    <section className="py-20 px-6">
+    <section className="py-12 sm:py-20 px-4 sm:px-6">
       <Eyebrow>Leadership</Eyebrow>
 
       <motion.h2
@@ -47,12 +47,12 @@ export default function Leadership() {
               delay: index * 0.15,
               ease: EASE_SMOOTH,
             }}
-            className="rounded-[80px] border border-white/10 backdrop-blur p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6 sm:gap-10"
+            className="rounded-3xl sm:rounded-[80px] border border-white/10 backdrop-blur p-5 sm:p-8 flex flex-col sm:flex-row items-center gap-5 sm:gap-10"
           >
             {/* Bigger Avatar / Photo */}
             <div className="shrink-0 flex justify-center">
               {m.image && !m.image.includes("/images/.avif") ? (
-                <div className="relative w-60 h-80 sm:w-76 sm:h-76 md:w-84 md:h-84 rounded-full overflow-hidden ring-2 ring-sky-400/70 ring-offset-4 ring-offset-[#0a0f1c] shadow-xl">
+                <div className="relative w-40 h-40 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-full overflow-hidden ring-2 ring-sky-400/70 ring-offset-2 sm:ring-offset-4 ring-offset-[#0a0f1c] shadow-xl">
                   <img
                     src={m.image}
                     alt={m.name}
@@ -61,14 +61,14 @@ export default function Leadership() {
                   />
                 </div>
               ) : (
-                <div className="w-40 h-40 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-full bg-gradient-to-br from-sky-400 to-sky-700 flex items-center justify-center text-white font-bold text-3xl sm:text-4xl ring-2 ring-sky-400/50 ring-offset-4 ring-offset-[#0a0f1c]">
+                <div className="w-32 h-32 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-full bg-gradient-to-br from-sky-400 to-sky-700 flex items-center justify-center text-white font-bold text-2xl sm:text-4xl ring-2 ring-sky-400/50 ring-offset-2 sm:ring-offset-4 ring-offset-[#0a0f1c]">
                   {m.initials}
                 </div>
               )}
             </div>
 
             {/* Text content */}
-            <div className="text-center sm:text-left flex-1">
+            <div className="text-center sm:text-left flex-1 min-w-0">
               <p className="text-xs uppercase tracking-widest text-sky-400 font-semibold mb-2">
                 {m.role}
               </p>

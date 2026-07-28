@@ -94,7 +94,7 @@ export default function PageShutter() {
         <img
           src="/images/Bharat Space2.svg"
           alt="Bharat Space"
-          style={{ height: "45/videos/about_page_video.mp40px", width: "auto" }}
+          style={{ height: "45px", width: "auto" }}
         />
       </div>
     </div>
