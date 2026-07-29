@@ -1,6 +1,7 @@
 import "./globals.css";
 import SiteBackground from "@/components/SiteBackground";
 import PageShutter from "@/components/PageShutter";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata = {
   title: "Bharat Space | India's First Multi-Mission EO & SAR Constellation",
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
         <SiteBackground />
         <PageShutter />
         {children}
+        <Analytics />
       </body>
     </html>
   );
