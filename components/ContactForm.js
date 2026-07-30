@@ -21,7 +21,7 @@ export default function ContactForm() {
   };
 
   const inputClasses =
-    "w-full backdrop-blur bg-space-500 border border-white/10 focus:border-sky-500 outline-none rounded-md px-4 py-3 text-sm text-white placeholder:text-slate-500 transition-colors";
+    "w-full backdrop-blur bg-space-500 border border-white/10 focus:border-sky-500 outline-none rounded-md px-4 py-3.5 text-base text-white placeholder:text-slate-500 transition-colors";
 
   return (
     <div className="relative">
@@ -34,21 +34,21 @@ export default function ContactForm() {
             viewport={{ once: false, margin: "-80px" }}
             transition={{ duration: 0.9 }}
           >
-            <p className="text-[11px] tracking-[0.25em] uppercase text-sky-400 font-semibold mb-3">
+            <p className="text-xs sm:text-[13px] tracking-[0.22em] uppercase text-sky-400 font-semibold mb-4">
               About Us
             </p>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white leading-snug mb-5">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white leading-snug mb-5 tracking-tight">
               Connect for excellence: your gateway to exceptional solutions.
             </h2>
-            <p className="text-slate-400 text-sm leading-relaxed mb-8">
+            <p className="text-slate-400 text-base leading-relaxed mb-8">
               Reach out with questions, feedback, or collaboration inquiries.
               Our team responds within 1–2 business days.
             </p>
 
-            <p className="text-[11px] uppercase tracking-wide text-slate-500 font-semibold mb-2">
+            <p className="text-xs uppercase tracking-wide text-slate-500 font-semibold mb-2">
               Head Office
             </p>
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <p className="text-slate-300 text-base leading-relaxed">
               6th-8th Floor, The Melange, Fugewadi, Seva Nagar, Dapodi,
               Pimpri-Chinchwad, Pune, Maharashtra 411012
             </p>
@@ -105,7 +105,7 @@ export default function ContactForm() {
               type="submit"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              className="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-400 transition-colors text-white text-sm font-semibold px-6 py-3 rounded-md"
+              className="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-400 transition-colors text-white text-sm sm:text-base font-semibold px-6 sm:px-7 py-3 sm:py-3.5 rounded-md"
             >
               Submit <span>→</span>
             </motion.button>
@@ -114,7 +114,7 @@ export default function ContactForm() {
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-sky-400 text-xs pt-1"
+                className="text-sky-400 text-sm pt-1"
               >
                 Thanks — we&apos;ve received your message and will be in touch
                 soon.

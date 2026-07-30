@@ -27,7 +27,7 @@ export default function Team() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 0.9, ease: EASE_SMOOTH }}
-          className="text-3xl md:text-4xl font-bold text-white text-center mb-2"
+          className="text-3xl md:text-4xl font-bold text-white text-center mb-3 tracking-tight"
         >
           Meet the Team
         </motion.h2>
@@ -37,7 +37,7 @@ export default function Team() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 0.7, delay: 0.15, ease: EASE_SMOOTH }}
-          className="text-slate-400 text-center max-w-2xl mx-auto mb-10 text-sm md:text-base"
+          className="text-slate-400 text-center max-w-2xl mx-auto mb-10 text-base md:text-lg leading-relaxed"
         >
           Passionate experts committed to building India&apos;s future in space
           technology
@@ -69,10 +69,10 @@ export default function Team() {
 
               {/* Name + Role */}
               <div className="p-4 text-center bg-black/50 mt-auto">
-                <h3 className="text-white text-lg font-semibold mb-0.5">
+                <h3 className="text-white text-lg sm:text-xl font-semibold mb-1">
                   {member.name}
                 </h3>
-                <p className="text-sky-400 text-xs font-medium">
+                <p className="text-sky-400 text-sm font-medium">
                   {member.role}
                 </p>
               </div>

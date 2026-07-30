@@ -5,12 +5,31 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  font-size: 16px;
 }
 
 body {
   background-color: #060a16;
   color: #e2e8f0;
   overflow-x: hidden;
+  font-size: 1rem;
+  line-height: 1.65;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Professional type scale helpers */
+.prose-body {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.prose-muted {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #94a3b8;
 }
 
 ::selection {

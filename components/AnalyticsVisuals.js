@@ -8,12 +8,12 @@ export function TemporalCompareVisual() {
             "repeating-linear-gradient(135deg, #14532d 0 8px, #052e16 8px 16px)",
         }}
       >
-        <span className="text-[10px] uppercase tracking-wide bg-black/50 text-slate-200 px-2 py-1 rounded">
+        <span className="text-xs uppercase tracking-wide bg-black/50 text-slate-200 px-2 py-1 rounded">
           Before
         </span>
       </div>
       <div className="relative flex items-end p-4 bg-space-300">
-        <span className="text-[10px] uppercase tracking-wide bg-black/50 text-slate-200 px-2 py-1 rounded">
+        <span className="text-xs uppercase tracking-wide bg-black/50 text-slate-200 px-2 py-1 rounded">
           After
         </span>
       </div>
@@ -24,7 +24,7 @@ export function TemporalCompareVisual() {
 export function HeatmapVisual() {
   return (
     <div className="rounded-2xl border border-white/10 bg-space-600 p-5 aspect-[4/3] relative overflow-hidden">
-      <span className="text-[10px] uppercase tracking-wide text-slate-300 font-semibold">
+      <span className="text-xs uppercase tracking-wide text-slate-300 font-semibold">
         Heatmap
       </span>
       <div
@@ -79,7 +79,7 @@ export function LandCoverVisual() {
           />
         ))}
       </div>
-      <div className="flex items-center gap-4 text-[10px] text-slate-300">
+      <div className="flex items-center gap-4 text-xs text-slate-300">
         <span className="flex items-center gap-1.5">
           <span className="w-2.5 h-2.5 rounded-sm bg-blue-500" /> Water
         </span>
@@ -116,7 +116,7 @@ export function DashboardVisual() {
                 "conic-gradient(#0ea5e9 0% 62%, rgba(148,163,184,0.2) 62% 100%)",
             }}
           />
-          <span className="text-xs text-white font-semibold">62%</span>
+          <span className="text-sm text-white font-semibold">62%</span>
         </div>
       </div>
       <div className="rounded-lg bg-space-500 border border-white/5 p-4 flex items-center justify-around">
@@ -126,8 +126,8 @@ export function DashboardVisual() {
           ["8%", "Cloud Cover"],
         ].map(([v, l]) => (
           <div key={l} className="text-center">
-            <p className="text-white font-bold text-sm">{v}</p>
-            <p className="text-[9px] uppercase tracking-wide text-slate-500">
+            <p className="text-white font-bold text-base">{v}</p>
+            <p className="text-[11px] uppercase tracking-wide text-slate-500">
               {l}
             </p>
           </div>
@@ -159,7 +159,7 @@ export function ObjectDetectionVisual() {
           className="absolute border-2 border-red-500/80"
           style={{ top: d.top, left: d.left, width: d.w, height: d.h }}
         >
-          <span className="absolute -top-5 left-0 text-[9px] bg-red-500/90 text-white px-1.5 py-0.5 rounded">
+          <span className="absolute -top-5 left-0 text-[11px] bg-red-500/90 text-white px-1.5 py-0.5 rounded">
             {d.label}
           </span>
         </div>

@@ -37,7 +37,7 @@ export default function FooterIndexPage() {
             />
           </Link>
 
-          <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-slate-400">
+          <div className="flex flex-wrap items-center justify-center gap-6 text-[15px] text-slate-400">
             {FOOTER_LINKS.map((l) => (
               <Link
                 key={l.label}
@@ -55,7 +55,7 @@ export default function FooterIndexPage() {
                 key={s.label}
                 href={s.href}
                 aria-label={s.label}
-                className="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center text-[11px] text-slate-400 hover:text-white hover:border-sky-500 transition-colors"
+                className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-xs text-slate-400 hover:text-white hover:border-sky-500 transition-colors"
               >
                 {s.label}
               </a>
@@ -64,7 +64,7 @@ export default function FooterIndexPage() {
         </div>
 
         <div className="max-w-6xl mx-auto border-t border-white/5 mt-8 pt-6 text-center">
-          <p className="text-xs text-slate-600">
+          <p className="text-sm text-slate-600">
             © 2026 Bharat Space Private Limited
           </p>
         </div>

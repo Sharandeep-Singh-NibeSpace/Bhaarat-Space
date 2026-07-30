@@ -24,7 +24,7 @@ export default function AboutTopHero() {
         initial={{ opacity: 0, y: 30, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 1, ease: EASE_SMOOTH }}
-        className="relative z-10 text-center text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold uppercase tracking-tight text-white px-4 sm:px-6 leading-tight drop-shadow-[0_2px_20px_rgba(0,0,0,0.6)]"
+        className="relative z-10 text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold uppercase tracking-tight text-white px-4 sm:px-6 leading-[1.1] drop-shadow-[0_2px_20px_rgba(0,0,0,0.6)]"
       >
         About Bharat Space
       </motion.h1>

@@ -21,7 +21,7 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 0.9, ease: EASE_SMOOTH }}
-          className="text-2xl sm:text-3xl font-bold text-white text-center mb-14"
+          className="text-3xl sm:text-4xl font-bold text-white text-center mb-14 tracking-tight"
         >
           Building a self-reliant India in space
         </motion.h2>
@@ -54,13 +54,13 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, margin: "-60px" }}
               transition={{ duration: 0.7, delay: 0.15, ease: EASE_SMOOTH }}
-              className="text-xl sm:text-2xl font-bold text-white"
+              className="text-2xl sm:text-3xl font-bold text-white tracking-tight"
             >
               Pioneers in Earth Observation for national security and defense
             </motion.h3>
 
             <AnimatedText
-              className="text-slate-400 text-sm leading-relaxed"
+              className="text-slate-400 text-base leading-relaxed"
               delay={0.25}
               stagger={0.012}
             >
@@ -70,7 +70,7 @@ export default function About() {
             </AnimatedText>
 
             <AnimatedText
-              className="text-slate-400 text-sm leading-relaxed"
+              className="text-slate-400 text-base leading-relaxed"
               delay={0.1}
               stagger={0.012}
             >

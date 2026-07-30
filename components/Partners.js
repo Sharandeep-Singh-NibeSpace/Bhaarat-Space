@@ -51,7 +51,7 @@ export default function Partners() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, margin: "-100px" }}
         transition={{ duration: 0.9, ease: EASE_SMOOTH }}
-        className="text-2xl sm:text-3xl font-bold text-white text-center mb-14"
+        className="text-3xl sm:text-4xl font-bold text-white text-center mb-14 tracking-tight"
       >
         Strategic Partners
       </motion.h2>

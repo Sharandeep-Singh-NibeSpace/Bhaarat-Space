@@ -115,7 +115,7 @@ export function AnimatedText({
 
 export function Eyebrow({ children }) {
   return (
-    <p className="text-[11px] tracking-[0.25em] uppercase text-sky-400 font-semibold mb-3 text-center">
+    <p className="text-xs sm:text-[13px] tracking-[0.22em] uppercase text-sky-400 font-semibold mb-4 text-center">
       {children}
     </p>
   );
@@ -123,7 +123,7 @@ export function Eyebrow({ children }) {
 
 export function Pill({ children }) {
   return (
-    <span className="inline-block text-[11px] uppercase tracking-wide text-sky-300 border border-sky-700/60 bg-sky-900/30 rounded-full px-3 py-1">
+    <span className="inline-block text-xs uppercase tracking-wide text-sky-300 border border-sky-700/60 bg-sky-900/30 rounded-full px-3.5 py-1.5">
       {children}
     </span>
   );

@@ -71,7 +71,7 @@ function SensorVisual({ kind, image }) {
 
       <div className="absolute inset-0 bg-gradient-to-b " />
 
-      <span className="absolute top-4 left-4 text-[10px] uppercase tracking-wide text-sky-300 border border-sky-700/50 bg-sky-900/60 rounded px-2 py-1 z-10">
+      <span className="absolute top-4 left-4 text-xs uppercase tracking-wide text-sky-300 border border-sky-700/50 bg-sky-900/60 rounded px-2.5 py-1 z-10">
         {kind}
       </span>
     </motion.div>
@@ -85,20 +85,20 @@ function SensorRow({ sensor, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, delay: 0.2 }}
     >
-      <p className="text-[10px] uppercase tracking-wide text-sky-400 font-semibold mb-3">
+      <p className="text-xs uppercase tracking-wide text-sky-400 font-semibold mb-3">
         {sensor.heading || sensor.tag}
       </p>
-      <h3 className="text-xl sm:text-2xl font-bold text-white mb-5">
+      <h3 className="text-2xl sm:text-3xl font-bold text-white mb-5 tracking-tight">
         {sensor.title}
       </h3>
-      <ul className="space-y-3">
+      <ul className="space-y-3.5">
         {sensor.points.map((p, i) => (
           <motion.li
             key={i}
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 + i * 0.1 }}
-            className="flex gap-3 text-slate-400 text-sm leading-relaxed"
+            className="flex gap-3 text-slate-400 text-base leading-relaxed"
           >
             <span className="text-sky-400 mt-0.5">✓</span>
             <span>{p}</span>
@@ -144,7 +144,7 @@ export default function Sensors() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 0.9 }}
-          className="text-2xl sm:text-3xl font-bold text-white text-center max-w-2xl mx-auto mb-6"
+          className="text-3xl sm:text-4xl font-bold text-white text-center max-w-3xl mx-auto mb-6 tracking-tight"
         >
           Diverse satellite types for varied missions
         </motion.h2>

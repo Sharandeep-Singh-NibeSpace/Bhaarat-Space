@@ -104,7 +104,7 @@ function FeatureRow({ feature, index }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, margin: "-60px" }}
         transition={{ duration: 0.5, ease: EASE_SMOOTH }}
-        className="text-[10px] uppercase tracking-wide text-sky-400 font-semibold mb-3"
+        className="text-xs uppercase tracking-wide text-sky-400 font-semibold mb-3"
       >
         {tag}
       </motion.p>
@@ -113,25 +113,25 @@ function FeatureRow({ feature, index }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, margin: "-60px" }}
         transition={{ duration: 0.6, delay: 0.05, ease: EASE_SMOOTH }}
-        className="text-xl sm:text-2xl font-bold text-white mb-5"
+        className="text-2xl sm:text-3xl font-bold text-white mb-5 tracking-tight"
       >
         {title}
       </motion.h3>
 
-      <p className="text-slate-400 text-sm leading-relaxed mb-4">
+      <p className="text-slate-400 text-base leading-relaxed mb-4">
         <span className="text-slate-200 font-semibold">Description: </span>
         <AnimatedText as="span" delay={0.1} stagger={0.01}>
           {description}
         </AnimatedText>
       </p>
-      <p className="text-slate-400 text-sm leading-relaxed mb-5">
+      <p className="text-slate-400 text-base leading-relaxed mb-5">
         <span className="text-slate-200 font-semibold">Purpose: </span>
         <AnimatedText as="span" delay={0.05} stagger={0.01}>
           {purpose}
         </AnimatedText>
       </p>
 
-      <ul className="space-y-2.5">
+      <ul className="space-y-3">
         {points.map((p, i) => (
           <motion.li
             key={i}
@@ -139,7 +139,7 @@ function FeatureRow({ feature, index }) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false, margin: "-60px" }}
             transition={{ duration: 0.5, delay: i * 0.1, ease: EASE_SMOOTH }}
-            className="flex gap-3 text-slate-400 text-sm leading-relaxed"
+            className="flex gap-3 text-slate-400 text-base leading-relaxed"
           >
             <span className="text-sky-400 mt-0.5">✓</span>
             <span>{p}</span>
@@ -153,7 +153,7 @@ function FeatureRow({ feature, index }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: "-60px" }}
           transition={{ duration: 0.6, delay: 0.2, ease: EASE_SMOOTH }}
-          className="mt-6 border-l-2 border-sky-500 bg-sky-900/20 rounded-r-md px-4 py-3 text-sm text-slate-300"
+          className="mt-6 border-l-2 border-sky-500 bg-sky-900/20 rounded-r-md px-4 py-3 text-base text-slate-300"
         >
           <span className="text-white font-semibold">Defense use: </span>
           {note.replace(/^Defense use:\s*/i, "")}
@@ -216,14 +216,14 @@ export default function AnalyticsFeatures() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, margin: "-100px" }}
         transition={{ duration: 0.9, ease: EASE_SMOOTH }}
-        className="text-2xl sm:text-3xl font-bold text-white text-center mb-4"
+        className="text-3xl sm:text-4xl font-bold text-white text-center mb-4 tracking-tight"
       >
         Analytics features in development
       </motion.h2>
 
-      <div className="max-w-xl mx-auto mb-12">
+      <div className="max-w-2xl mx-auto mb-12">
         <AnimatedText
-          className="text-slate-400 text-sm text-center"
+          className="text-slate-400 text-base sm:text-lg text-center leading-relaxed"
           delay={0.15}
           stagger={0.015}
         >

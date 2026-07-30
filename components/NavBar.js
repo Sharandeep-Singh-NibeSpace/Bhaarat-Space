@@ -43,7 +43,7 @@ export default function NavBar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-8 text-sm text-white drop-shadow-md">
+        <nav className="hidden lg:flex items-center gap-8 text-[15px] text-white drop-shadow-md">
           {NAV_LINKS.map((link) => {
             const active = pathname === link.href;
             return (
@@ -63,7 +63,7 @@ export default function NavBar() {
         {/* Desktop CTA — hide below lg so it doesn't crowd mobile/tablet header */}
         <Link
           href="/contact"
-          className="hidden lg:inline-flex transition-colors text-white text-sm font-semibold px-5 py-2.5 rounded-md hover:bg-white/10"
+          className="hidden lg:inline-flex transition-colors text-white text-[15px] font-semibold px-5 py-2.5 rounded-md hover:bg-white/10"
         >
           Contact Us
         </Link>

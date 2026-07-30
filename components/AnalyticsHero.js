@@ -13,7 +13,7 @@ export default function AnalyticsHero() {
           initial={{ opacity: 0, y: -14, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.7, ease: EASE_SMOOTH }}
-          className="inline-flex items-center gap-2 text-xs tracking-[0.125em] uppercase text-sky-300 border border-sky-600/60 backdrop-blur-md rounded-full px-5 py-2 mb-10"
+          className="inline-flex items-center gap-2 text-xs sm:text-[13px] tracking-[0.14em] uppercase text-sky-300 border border-sky-600/60 backdrop-blur-md rounded-full px-5 py-2.5 mb-10"
         >
           <motion.span
             className="text-sky-400 text-base"
@@ -30,7 +30,7 @@ export default function AnalyticsHero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.15, ease: EASE_SMOOTH }}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-white tracking-tight"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] text-white tracking-tight"
         >
           Turning <span className="text-sky-400">orbit data</span> into
           <br className="hidden sm:block" /> operational insight
@@ -39,7 +39,7 @@ export default function AnalyticsHero() {
         {/* Subtitle */}
         <div className="max-w-2xl mx-auto mt-8">
           <AnimatedText
-            className="text-slate-400 text-base md:text-lg leading-relaxed"
+            className="text-slate-400 text-base sm:text-lg md:text-xl leading-relaxed"
             delay={0.55}
             stagger={0.02}
           >

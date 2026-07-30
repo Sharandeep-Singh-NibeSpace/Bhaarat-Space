@@ -30,7 +30,7 @@ export default function Leadership() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, margin: "-100px" }}
         transition={{ duration: 0.9, ease: EASE_SMOOTH }}
-        className="text-3xl sm:text-4xl font-bold text-white text-center mb-14"
+        className="text-3xl sm:text-4xl md:text-5xl font-bold text-white text-center mb-14 tracking-tight"
       >
         Our Leadership
       </motion.h2>
@@ -69,14 +69,14 @@ export default function Leadership() {
 
             {/* Text content */}
             <div className="text-center sm:text-left flex-1 min-w-0">
-              <p className="text-xs uppercase tracking-widest text-sky-400 font-semibold mb-2">
+              <p className="text-xs sm:text-[13px] uppercase tracking-widest text-sky-400 font-semibold mb-2">
                 {m.role}
               </p>
-              <h3 className="text-white font-semibold text-xl sm:text-2xl mb-4">
+              <h3 className="text-white font-semibold text-2xl sm:text-3xl mb-4 tracking-tight">
                 {m.name}
               </h3>
               <AnimatedText
-                className="text-slate-400 text-sm sm:text-base leading-relaxed"
+                className="text-slate-400 text-base sm:text-lg leading-relaxed"
                 stagger={0.006}
                 once
               >

@@ -65,7 +65,7 @@ function RoadmapColumn({ data, index }) {
       <motion.h3
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
-        className="text-3xl font-bold text-sky-400 mb-6"
+        className="text-3xl sm:text-4xl font-bold text-sky-400 mb-6 tracking-tight"
       >
         {data.year}
       </motion.h3>
@@ -78,7 +78,7 @@ function RoadmapColumn({ data, index }) {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 + i * 0.08 }}
           >
-            <div className="flex justify-between text-xs text-slate-400 mb-1.5">
+            <div className="flex justify-between text-sm text-slate-400 mb-1.5">
               <span>{row.label}</span>
               <span className="text-white font-semibold">{row.value}</span>
             </div>
@@ -136,7 +136,7 @@ function AnimatedVisionChart() {
       className="mt-16 rounded-xl border border-white/10 p-4 sm:p-8 backdrop-blur relative overflow-hidden"
     >
       {/* Legend */}
-      <div className="flex flex-wrap gap-x-4 gap-y-2 mb-8 text-xs text-slate-400">
+      <div className="flex flex-wrap gap-x-4 gap-y-2 mb-8 text-sm text-slate-400">
         {CATEGORIES.map((c) => (
           <div key={c.key} className="flex items-center gap-1.5">
             <span
@@ -162,10 +162,10 @@ function AnimatedVisionChart() {
               className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-4"
             >
               <div className="flex items-center justify-between sm:w-44 sm:shrink-0 gap-2">
-                <span className="text-xs sm:text-sm text-slate-300 truncate">
+                <span className="text-sm text-slate-300 truncate">
                   {item.label}
                 </span>
-                <span className="sm:hidden text-xs font-bold text-white">
+                <span className="sm:hidden text-sm font-bold text-white">
                   {item.value}
                 </span>
               </div>
@@ -192,7 +192,7 @@ function AnimatedVisionChart() {
                   initial={{ opacity: 0, x: -6 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3, delay: 0.15 }}
-                  className="hidden sm:block absolute top-1/2 -translate-y-1/2 text-xs font-bold text-white ml-2"
+                  className="hidden sm:block absolute top-1/2 -translate-y-1/2 text-sm font-bold text-white ml-2"
                   style={{
                     left: `calc(${(item.value / maxValue) * 100}% + 6px)`,
                   }}
@@ -237,7 +237,7 @@ export default function Roadmap() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 0.9 }}
-          className="text-2xl sm:text-3xl font-bold text-white text-center mb-14"
+          className="text-3xl sm:text-4xl font-bold text-white text-center mb-14 tracking-tight"
         >
           From first launch to a sovereign constellation
         </motion.h2>

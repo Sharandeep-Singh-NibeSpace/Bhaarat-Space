@@ -43,7 +43,7 @@ export default function Hero() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false }}
           transition={{ duration: 0.8 }}
-          className="inline-flex gap-2 text-[10px] sm:text-[11px] tracking-[0.12em] sm:tracking-[0.2em] uppercase text-sky-300 border border-sky-700/50 bg-sky-900/30 rounded-full px-3 sm:px-4 py-1.5 mb-6 sm:mb-8 max-w-full"
+          className="inline-flex gap-2 text-xs sm:text-[13px] tracking-[0.12em] sm:tracking-[0.18em] uppercase text-sky-300 border border-sky-700/50 bg-sky-900/30 rounded-full px-3.5 sm:px-4 py-2 mb-6 sm:mb-8 max-w-full"
         >
           <span className="text-sky-400">★</span>
           India&apos;s first multi-mission EO &amp; SAR constellation
@@ -55,7 +55,7 @@ export default function Hero() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false }}
           transition={{ duration: 3, ease: [0.25, 0.1, 0.25, 1] }}
-          className="text-3xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-white text-left"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight text-white text-left"
         >
           Sub-90
           <br />
@@ -72,7 +72,7 @@ export default function Hero() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false }}
           transition={{ duration: 0.9, delay: 1 }}
-          className="text-slate-400 mt-6 text-sm sm:text-base leading-relaxed text-left max-w-xl"
+          className="text-slate-400 mt-6 text-base sm:text-lg leading-relaxed text-left max-w-xl"
         >
           High-resolution Earth Observation and SAR satellites, purpose-built
           for strategic defense and national resilience.
@@ -88,13 +88,13 @@ export default function Hero() {
         >
           <a
             href="#solution"
-            className="bg-sky-500 hover:bg-sky-400 transition-colors text-white text-center text-sm font-semibold px-6 py-3 rounded-md"
+            className="bg-sky-500 hover:bg-sky-400 transition-colors text-white text-center text-sm sm:text-base font-semibold px-6 sm:px-7 py-3 sm:py-3.5 rounded-md"
           >
             Explore the Constellation
           </a>
           <Link
             href="/contact"
-            className="border backdrop-blur border-slate-600 hover:border-slate-400 transition-colors text-slate-200 text-center text-sm font-semibold px-6 py-3 rounded-md"
+            className="border backdrop-blur border-slate-600 hover:border-slate-400 transition-colors text-slate-200 text-center text-sm sm:text-base font-semibold px-6 sm:px-7 py-3 sm:py-3.5 rounded-md"
           >
             Talk to Us
           </Link>
@@ -123,10 +123,10 @@ export default function Hero() {
                   : ""
               }`}
             >
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
+              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
                 {s.value}
               </div>
-              <div className="text-[10px] sm:text-[11px] uppercase tracking-wide text-slate-500 mt-1 leading-snug">
+              <div className="text-xs sm:text-[13px] uppercase tracking-wide text-slate-500 mt-1.5 leading-snug">
                 {s.label}
               </div>
             </motion.div>

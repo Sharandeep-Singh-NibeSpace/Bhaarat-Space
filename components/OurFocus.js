@@ -28,7 +28,7 @@ export default function OurFocus() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, margin: "-100px" }}
         transition={{ duration: 0.9, ease: EASE_SMOOTH }}
-        className="text-2xl sm:text-3xl font-bold text-white text-center mb-14"
+        className="text-3xl sm:text-4xl font-bold text-white text-center mb-14 tracking-tight"
       >
         Where we point our satellites
       </motion.h2>
@@ -54,14 +54,14 @@ export default function OurFocus() {
             </div>
 
             <div className="p-7">
-              <p className="text-[10px] uppercase tracking-wide text-sky-400 font-semibold mb-2">
+              <p className="text-xs uppercase tracking-wide text-sky-400 font-semibold mb-2">
                 {f.eyebrow}
               </p>
-              <h3 className="text-white font-semibold text-lg mb-2">
+              <h3 className="text-white font-semibold text-xl sm:text-2xl mb-3 tracking-tight">
                 {f.title}
               </h3>
               <AnimatedText
-                className="text-slate-400 text-sm leading-relaxed"
+                className="text-slate-400 text-base leading-relaxed"
                 stagger={0.012}
               >
                 {f.desc}

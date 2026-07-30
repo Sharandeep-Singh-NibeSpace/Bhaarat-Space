@@ -81,19 +81,19 @@ export default function ContactPage() {
   };
 
   const inputClasses =
-    "w-full bg-space-500 border border-white/10 focus:border-sky-500 outline-none rounded-md px-4 py-3.5 text-sm text-white placeholder:text-slate-500 transition-colors";
+    "w-full bg-space-500 border border-white/10 focus:border-sky-500 outline-none rounded-md px-4 py-3.5 text-base text-white placeholder:text-slate-500 transition-colors";
 
   return (
     <section className="py-12 sm:py-20 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-12">
         <div>
-          <p className="flex items-center gap-2 text-[11px] tracking-[0.25em] uppercase text-sky-400 font-semibold mb-4">
+          <p className="flex items-center gap-2 text-xs sm:text-[13px] tracking-[0.22em] uppercase text-sky-400 font-semibold mb-4">
             <span aria-hidden>☏</span> Contact Us
           </p>
-          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-5">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-5 tracking-tight">
             Get in Touch <span className="text-sky-400">with Us</span>
           </h1>
-          <p className="text-slate-400 text-sm leading-relaxed mb-10 max-w-md">
+          <p className="text-slate-400 text-base leading-relaxed mb-10 max-w-md">
             Reach out to us for inquiries, support, or partnership
             opportunities. We&apos;re here to assist you.
           </p>
@@ -112,8 +112,8 @@ export default function ContactPage() {
                     <CardIcon icon={c.icon} />
                   </span>
                   <div className="min-w-0">
-                    <p className="text-slate-500 text-xs mb-1">{c.label}</p>
-                    <p className="text-white font-semibold text-sm leading-snug break-words">
+                    <p className="text-slate-500 text-sm mb-1">{c.label}</p>
+                    <p className="text-white font-semibold text-base leading-snug break-words">
                       {c.value}
                     </p>
                   </div>
@@ -127,10 +127,10 @@ export default function ContactPage() {
         </div>
 
         <div className="rounded-2xl border border-white/10 backdrop-blur p-5 sm:p-9 min-w-0">
-          <h2 className="text-xl sm:text-2xl font-bold text-white mb-3">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 tracking-tight">
             Send Us a Message
           </h2>
-          <p className="text-slate-400 text-sm leading-relaxed mb-7">
+          <p className="text-slate-400 text-base leading-relaxed mb-7">
             Use our convenient contact form to reach out with questions,
             feedback, or collaboration inquiries.
           </p>
@@ -169,13 +169,13 @@ export default function ContactPage() {
 
             <button
               type="submit"
-              className="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-400 transition-colors text-white text-sm font-semibold px-6 py-3 rounded-md"
+              className="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-400 transition-colors text-white text-sm sm:text-base font-semibold px-6 sm:px-7 py-3 sm:py-3.5 rounded-md"
             >
               Submit <span>→</span>
             </button>
 
             {sent && (
-              <p className="text-sky-400 text-xs pt-1">
+              <p className="text-sky-400 text-sm pt-1">
                 Thanks — we&apos;ve received your message and will be in touch
                 soon.
               </p>

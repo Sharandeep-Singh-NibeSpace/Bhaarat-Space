@@ -108,7 +108,7 @@ export default function Solution() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 0.9 }}
-          className="text-2xl sm:text-3xl font-bold text-white text-center max-w-2xl mx-auto mb-14"
+          className="text-3xl sm:text-4xl font-bold text-white text-center max-w-3xl mx-auto mb-14 tracking-tight"
         >
           India&apos;s first multi-sensor, all-weather, high-revisit Earth
           Observation constellation
@@ -148,16 +148,16 @@ export default function Solution() {
               <div className="p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <SolutionIcon icon={card.icon} />
-                  <p className="text-[10px] uppercase tracking-widest text-sky-400 font-semibold">
+                  <p className="text-xs uppercase tracking-widest text-sky-400 font-semibold">
                     {card.eyebrow}
                   </p>
                 </div>
 
-                <h3 className="text-white font-semibold text-lg mb-3 leading-tight">
+                <h3 className="text-white font-semibold text-lg sm:text-xl mb-3 leading-snug">
                   {card.title}
                 </h3>
 
-                <p className="text-slate-400 text-sm leading-relaxed">
+                <p className="text-slate-400 text-base leading-relaxed">
                   {card.desc}
                 </p>
               </div>
