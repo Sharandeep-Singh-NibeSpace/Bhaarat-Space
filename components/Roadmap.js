@@ -78,7 +78,7 @@ function RoadmapColumn({ data, index }) {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 + i * 0.08 }}
           >
-            <div className="flex justify-between text-sm text-slate-400 mb-1.5">
+            <div className="flex justify-between text-sm text-white mb-1.5">
               <span>{row.label}</span>
               <span className="text-white font-semibold">{row.value}</span>
             </div>
@@ -136,7 +136,7 @@ function AnimatedVisionChart() {
       className="mt-16 rounded-xl border border-white/10 p-4 sm:p-8 backdrop-blur relative overflow-hidden"
     >
       {/* Legend */}
-      <div className="flex flex-wrap gap-x-4 gap-y-2 mb-8 text-sm text-slate-400">
+      <div className="flex flex-wrap gap-x-4 gap-y-2 mb-8 text-sm text-white">
         {CATEGORIES.map((c) => (
           <div key={c.key} className="flex items-center gap-1.5">
             <span

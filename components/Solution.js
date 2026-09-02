@@ -157,7 +157,7 @@ export default function Solution() {
                   {card.title}
                 </h3>
 
-                <p className="text-slate-400 text-base leading-relaxed">
+                <p className="text-white text-base leading-relaxed">
                   {card.desc}
                 </p>
               </div>

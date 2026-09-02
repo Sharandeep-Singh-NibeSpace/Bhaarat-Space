@@ -9,7 +9,7 @@ export default function AboutHero() {
   const videoRef = useRef(null);
 
   return (
-    <div className="relative overflow-hidden">
+    <div id="about-content" className="relative overflow-hidden">
       <section
         ref={sectionRef}
         className="py-12 sm:py-20 px-4 sm:px-6 relative"
@@ -60,7 +60,7 @@ export default function AboutHero() {
             </motion.h3>
 
             <AnimatedText
-              className="text-slate-400 text-base leading-relaxed"
+              className="text-white text-base leading-relaxed"
               delay={0.25}
               stagger={0.012}
             >
@@ -70,7 +70,7 @@ export default function AboutHero() {
             </AnimatedText>
 
             <AnimatedText
-              className="text-slate-400 text-base leading-relaxed"
+              className="text-white text-base leading-relaxed"
               delay={0.1}
               stagger={0.012}
             >

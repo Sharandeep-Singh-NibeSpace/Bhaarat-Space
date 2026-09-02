@@ -1,0 +1,10 @@
+# Keep the Vercel upload under plan limits. These files are unused in
+# production routes, or replaced by smaller hero sources on Vercel.
+public/videos/earth_bg_4k.mp4
+public/videos/earth.mp4
+public/videos/earth_globe_4k.mp4
+public/videos/earth1.webm
+public/videos/long_bg2.mp4
+public/videos/about_page_video.mp4
+node_modules
+.next

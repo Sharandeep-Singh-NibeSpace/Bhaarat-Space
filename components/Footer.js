@@ -47,7 +47,7 @@ export default function Footer() {
           </motion.div>
 
           <motion.div
-            className="flex flex-wrap items-center justify-center gap-6 text-[15px] text-slate-400"
+            className="flex flex-wrap items-center justify-center gap-6 text-[15px] text-white"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, margin: "-60px" }}
@@ -101,7 +101,7 @@ export default function Footer() {
                 }}
                 whileHover={{ scale: 1.15 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-xs text-slate-400 hover:text-white hover:border-sky-500 transition-colors"
+                className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-xs text-white hover:text-white hover:border-sky-500 transition-colors"
               >
                 {s.label}
               </motion.a>
@@ -116,7 +116,7 @@ export default function Footer() {
           transition={{ duration: 0.7, delay: 0.4, ease: EASE_SMOOTH }}
           className="max-w-6xl mx-auto border-t border-white/5 mt-8 pt-6 text-center"
         >
-          <p className="text-sm text-slate-600">
+          <p className="text-sm text-white text-slate-600">
             © 2026 Bharat Space Private Limited
           </p>
         </motion.div>

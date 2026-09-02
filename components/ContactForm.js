@@ -1,24 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useContactForm } from "@/lib/useContactForm";
 
 export default function ContactForm() {
-  const [form, setForm] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    message: "",
-  });
-  const [sent, setSent] = useState(false);
-
-  const update = (key) => (e) =>
-    setForm((f) => ({ ...f, [key]: e.target.value }));
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSent(true);
-  };
+  const { form, update, handleSubmit, status, error } = useContactForm();
+  const sending = status === "sending";
 
   const inputClasses =
     "w-full backdrop-blur bg-space-500 border border-white/10 focus:border-sky-500 outline-none rounded-md px-4 py-3.5 text-base text-white placeholder:text-slate-500 transition-colors";
@@ -40,12 +27,12 @@ export default function ContactForm() {
             <h2 className="text-3xl sm:text-4xl font-bold text-white leading-snug mb-5 tracking-tight">
               Connect for excellence: your gateway to exceptional solutions.
             </h2>
-            <p className="text-slate-400 text-base leading-relaxed mb-8">
+            <p className="text-white text-base leading-relaxed mb-8">
               Reach out with questions, feedback, or collaboration inquiries.
               Our team responds within 1–2 business days.
             </p>
 
-            <p className="text-xs uppercase tracking-wide text-slate-500 font-semibold mb-2">
+            <p className="text-xs uppercase text-white tracking-wide font-semibold mb-2">
               Head Office
             </p>
             <p className="text-slate-300 text-base leading-relaxed">
@@ -61,56 +48,95 @@ export default function ContactForm() {
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: false, margin: "-80px" }}
             transition={{ duration: 0.9, delay: 0.15 }}
-            className="rounded-2xl border border-white/10 backdrop-blur p-5 sm:p-7 space-y-4 min-w-0"
+            className="relative rounded-2xl border border-white/10 backdrop-blur p-5 sm:p-7 space-y-4 min-w-0"
           >
-            <div className="grid sm:grid-cols-2 gap-4" style={{ ZIndex: -1 }}>
+            <div className="absolute overflow-hidden w-px h-px -m-px" aria-hidden="true">
+              <input
+                tabIndex={-1}
+                autoComplete="off"
+                name="company"
+                value={form.company ?? ""}
+                onChange={update("company")}
+              />
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-4">
               <motion.input
                 required
+                name="name"
+                autoComplete="name"
                 placeholder="Full name"
                 value={form.name}
                 onChange={update("name")}
+                disabled={sending}
                 className={inputClasses}
                 whileFocus={{ scale: 1.02 }}
                 transition={{ duration: 0.2 }}
               />
               <motion.input
+                name="phone"
+                type="tel"
+                autoComplete="tel"
                 placeholder="Phone number"
                 value={form.phone}
                 onChange={update("phone")}
+                disabled={sending}
                 className={inputClasses}
                 whileFocus={{ scale: 1.02 }}
               />
             </div>
 
-            <motion.input
-              required
-              type="email"
-              placeholder="Email"
-              value={form.email}
-              onChange={update("email")}
-              className={inputClasses}
-              whileFocus={{ scale: 1.02 }}
-            />
+            <div className="grid sm:grid-cols-2 gap-4">
+              <motion.input
+                required
+                name="email"
+                type="email"
+                autoComplete="email"
+                placeholder="Email"
+                value={form.email}
+                onChange={update("email")}
+                disabled={sending}
+                className={inputClasses}
+                whileFocus={{ scale: 1.02 }}
+              />
+              <motion.input
+                name="website"
+                type="text"
+                autoComplete="url"
+                placeholder="Website"
+                value={form.website}
+                onChange={update("website")}
+                disabled={sending}
+                className={inputClasses}
+                whileFocus={{ scale: 1.02 }}
+              />
+            </div>
 
             <motion.textarea
+              required
+              name="message"
+              minLength={10}
+              maxLength={4000}
               placeholder="Describe your requirement"
               rows={4}
               value={form.message}
               onChange={update("message")}
-              className={inputClasses}
+              disabled={sending}
+              className={`${inputClasses} break-words`}
               whileFocus={{ scale: 1.02 }}
             />
 
             <motion.button
               type="submit"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
-              className="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-400 transition-colors text-white text-sm sm:text-base font-semibold px-6 sm:px-7 py-3 sm:py-3.5 rounded-md"
+              disabled={sending}
+              whileHover={sending ? undefined : { scale: 1.03 }}
+              whileTap={sending ? undefined : { scale: 0.98 }}
+              className="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-400 disabled:opacity-60 disabled:hover:bg-sky-500 transition-colors text-white text-sm sm:text-base font-semibold px-6 sm:px-7 py-3 sm:py-3.5 rounded-md"
             >
-              Submit <span>→</span>
+              {sending ? "Sending…" : "Submit"} <span>→</span>
             </motion.button>
 
-            {sent && (
+            {status === "sent" && (
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -119,6 +145,9 @@ export default function ContactForm() {
                 Thanks — we&apos;ve received your message and will be in touch
                 soon.
               </motion.p>
+            )}
+            {status === "error" && error && (
+              <p className="text-red-400 text-sm pt-1">{error}</p>
             )}
           </motion.form>
         </div>

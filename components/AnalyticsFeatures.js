@@ -6,12 +6,12 @@ import { Eyebrow, AnimatedText, EASE_SMOOTH } from "./ui";
 
 // Add your image paths here (public/images/ or any folder)
 const FEATURE_IMAGES = {
-  "Temporal Image Comparison": "/images/Temporal_Image.avif",
-  "Heatmap Visualization": "/images/Heatmap.avif",
+  "Temporal Image Comparison": "/images/Image-Analytics/image.jpg",
+  "Heatmap Visualization": "/images/Image-Analytics/8X8Ke.jpg",
   "Land Cover Classification": "/images/Land_Cover_Classification.avif",
   "Analytics Dashboard Mockup": "/images/Analytics_Dashboard_Mockup.avif",
   "Object Detection": "/images/Object_Detection.avif",
-  "Change Detection": "/images/Change_Detection.avif",
+  "Change Detection": "/images/Image-Analytics/Before.png",
 };
 
 const FEATURES = [
@@ -118,13 +118,13 @@ function FeatureRow({ feature, index }) {
         {title}
       </motion.h3>
 
-      <p className="text-slate-400 text-base leading-relaxed mb-4">
+      <p className="text-white text-base leading-relaxed mb-4">
         <span className="text-slate-200 font-semibold">Description: </span>
         <AnimatedText as="span" delay={0.1} stagger={0.01}>
           {description}
         </AnimatedText>
       </p>
-      <p className="text-slate-400 text-base leading-relaxed mb-5">
+      <p className="text-white text-base leading-relaxed mb-5">
         <span className="text-slate-200 font-semibold">Purpose: </span>
         <AnimatedText as="span" delay={0.05} stagger={0.01}>
           {purpose}
@@ -139,7 +139,7 @@ function FeatureRow({ feature, index }) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false, margin: "-60px" }}
             transition={{ duration: 0.5, delay: i * 0.1, ease: EASE_SMOOTH }}
-            className="flex gap-3 text-slate-400 text-base leading-relaxed"
+            className="flex gap-3 text-white text-base leading-relaxed"
           >
             <span className="text-sky-400 mt-0.5">✓</span>
             <span>{p}</span>
@@ -223,7 +223,7 @@ export default function AnalyticsFeatures() {
 
       <div className="max-w-2xl mx-auto mb-12">
         <AnimatedText
-          className="text-slate-400 text-base sm:text-lg text-center leading-relaxed"
+          className="text-white text-base sm:text-lg text-center leading-relaxed"
           delay={0.15}
           stagger={0.015}
         >

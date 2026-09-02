@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useContactForm } from "@/lib/useContactForm";
 
 const CONTACT_CARDS = [
   {
@@ -64,21 +64,8 @@ function CardIcon({ icon }) {
 }
 
 export default function ContactPage() {
-  const [form, setForm] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    message: "",
-  });
-  const [sent, setSent] = useState(false);
-
-  const update = (key) => (e) =>
-    setForm((f) => ({ ...f, [key]: e.target.value }));
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSent(true);
-  };
+  const { form, update, handleSubmit, status, error } = useContactForm();
+  const sending = status === "sending";
 
   const inputClasses =
     "w-full bg-space-500 border border-white/10 focus:border-sky-500 outline-none rounded-md px-4 py-3.5 text-base text-white placeholder:text-slate-500 transition-colors";
@@ -93,7 +80,7 @@ export default function ContactPage() {
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-5 tracking-tight">
             Get in Touch <span className="text-sky-400">with Us</span>
           </h1>
-          <p className="text-slate-400 text-base leading-relaxed mb-10 max-w-md">
+          <p className="text-white text-base leading-relaxed mb-10 max-w-md">
             Reach out to us for inquiries, support, or partnership
             opportunities. We&apos;re here to assist you.
           </p>
@@ -112,7 +99,7 @@ export default function ContactPage() {
                     <CardIcon icon={c.icon} />
                   </span>
                   <div className="min-w-0">
-                    <p className="text-slate-500 text-sm mb-1">{c.label}</p>
+                    <p className="text-white text-sm mb-1">{c.label}</p>
                     <p className="text-white font-semibold text-base leading-snug break-words">
                       {c.value}
                     </p>
@@ -130,55 +117,95 @@ export default function ContactPage() {
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 tracking-tight">
             Send Us a Message
           </h2>
-          <p className="text-slate-400 text-base leading-relaxed mb-7">
+          <p className="text-white text-base leading-relaxed mb-7">
             Use our convenient contact form to reach out with questions,
             feedback, or collaboration inquiries.
           </p>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="relative space-y-4">
+            <div className="absolute overflow-hidden w-px h-px -m-px" aria-hidden="true">
+              <input
+                tabIndex={-1}
+                autoComplete="off"
+                name="company"
+                value={form.company ?? ""}
+                onChange={update("company")}
+              />
+            </div>
             <div className="grid sm:grid-cols-2 gap-4">
               <input
                 required
+                name="name"
+                autoComplete="name"
                 placeholder="Full Name"
                 value={form.name}
                 onChange={update("name")}
+                disabled={sending}
                 className={inputClasses}
               />
               <input
+                name="phone"
+                type="tel"
+                autoComplete="tel"
                 placeholder="Phone Number"
                 value={form.phone}
                 onChange={update("phone")}
+                disabled={sending}
                 className={inputClasses}
               />
             </div>
-            <input
-              required
-              type="email"
-              placeholder="Email"
-              value={form.email}
-              onChange={update("email")}
-              className={inputClasses}
-            />
+            <div className="grid sm:grid-cols-2 gap-4">
+              <input
+                required
+                name="email"
+                type="email"
+                autoComplete="email"
+                placeholder="Email"
+                value={form.email}
+                onChange={update("email")}
+                disabled={sending}
+                className={inputClasses}
+              />
+              <input
+                name="website"
+                type="text"
+                autoComplete="url"
+                placeholder="Website"
+                value={form.website}
+                onChange={update("website")}
+                disabled={sending}
+                className={inputClasses}
+              />
+            </div>
             <textarea
+              required
+              name="message"
+              minLength={10}
+              maxLength={4000}
               placeholder="Describe Your Requirement"
               rows={5}
               value={form.message}
               onChange={update("message")}
-              className={inputClasses}
+              disabled={sending}
+              className={`${inputClasses} break-words`}
             />
 
             <button
               type="submit"
-              className="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-400 transition-colors text-white text-sm sm:text-base font-semibold px-6 sm:px-7 py-3 sm:py-3.5 rounded-md"
+              disabled={sending}
+              className="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-400 disabled:opacity-60 disabled:hover:bg-sky-500 transition-colors text-white text-sm sm:text-base font-semibold px-6 sm:px-7 py-3 sm:py-3.5 rounded-md"
             >
-              Submit <span>→</span>
+              {sending ? "Sending…" : "Submit"} <span>→</span>
             </button>
 
-            {sent && (
+            {status === "sent" && (
               <p className="text-sky-400 text-sm pt-1">
                 Thanks — we&apos;ve received your message and will be in touch
                 soon.
               </p>
+            )}
+            {status === "error" && error && (
+              <p className="text-red-400 text-sm pt-1">{error}</p>
             )}
           </form>
         </div>

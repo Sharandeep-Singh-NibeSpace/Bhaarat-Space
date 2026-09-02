@@ -5,12 +5,57 @@ import { motion } from "framer-motion";
 export function SatelliteGlyph({ className = "" }) {
   return (
     <svg viewBox="0 0 64 64" className={className} fill="none">
-      <rect x="14" y="2" width="8" height="20" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-      <rect x="42" y="2" width="8" height="20" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-      <rect x="26" y="24" width="12" height="14" rx="2" stroke="currentColor" strokeWidth="1.5" />
-      <line x1="22" y1="28" x2="26" y2="28" stroke="currentColor" strokeWidth="1.5" />
-      <line x1="38" y1="28" x2="42" y2="28" stroke="currentColor" strokeWidth="1.5" />
-      <line x1="32" y1="38" x2="32" y2="52" stroke="currentColor" strokeWidth="1.5" />
+      <rect
+        x="14"
+        y="2"
+        width="8"
+        height="20"
+        rx="1.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <rect
+        x="42"
+        y="2"
+        width="8"
+        height="20"
+        rx="1.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <rect
+        x="26"
+        y="24"
+        width="12"
+        height="14"
+        rx="2"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <line
+        x1="22"
+        y1="28"
+        x2="26"
+        y2="28"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <line
+        x1="38"
+        y1="28"
+        x2="42"
+        y2="28"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <line
+        x1="32"
+        y1="38"
+        x2="32"
+        y2="52"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
       <circle cx="32" cy="56" r="4" stroke="currentColor" strokeWidth="1.5" />
     </svg>
   );
@@ -19,9 +64,31 @@ export function SatelliteGlyph({ className = "" }) {
 export function RadarGlyph({ className = "" }) {
   return (
     <svg viewBox="0 0 120 70" className={className} fill="none">
-      <ellipse cx="60" cy="40" rx="50" ry="18" stroke="currentColor" strokeWidth="1.5" />
-      <line x1="60" y1="22" x2="60" y2="46" stroke="currentColor" strokeWidth="1.5" />
-      <rect x="52" y="46" width="16" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+      <ellipse
+        cx="60"
+        cy="40"
+        rx="50"
+        ry="18"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <line
+        x1="60"
+        y1="22"
+        x2="60"
+        y2="46"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <rect
+        x="52"
+        y="46"
+        width="16"
+        height="8"
+        rx="1.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
     </svg>
   );
 }
@@ -29,7 +96,15 @@ export function RadarGlyph({ className = "" }) {
 export function ElintGlyph({ className = "" }) {
   return (
     <svg viewBox="0 0 70 90" className={className} fill="none">
-      <rect x="28" y="38" width="14" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
+      <rect
+        x="28"
+        y="38"
+        width="14"
+        height="18"
+        rx="2"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
       {[0, 1, 2, 3].map((i) => (
         <line
           key={i}
@@ -41,7 +116,14 @@ export function ElintGlyph({ className = "" }) {
           strokeWidth="1.2"
         />
       ))}
-      <line x1="35" y1="56" x2="35" y2="80" stroke="currentColor" strokeWidth="1.5" />
+      <line
+        x1="35"
+        y1="56"
+        x2="35"
+        y2="80"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
     </svg>
   );
 }
@@ -94,7 +176,7 @@ export function AnimatedText({
       {words.map((word, i) => (
         <motion.span
           key={i}
-          className="inline-block will-change-transform"
+          className="inline-block text-white will-change-transform"
           variants={{
             hidden: { opacity: 0, y: "0.6em", filter: "blur(4px)" },
             visible: {

@@ -61,7 +61,7 @@ export default function OurFocus() {
                 {f.title}
               </h3>
               <AnimatedText
-                className="text-slate-400 text-base leading-relaxed"
+                className="text-white text-base leading-relaxed"
                 stagger={0.012}
               >
                 {f.desc}

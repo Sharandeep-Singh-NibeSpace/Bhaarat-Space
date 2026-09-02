@@ -39,7 +39,7 @@ export default function AnalyticsHero() {
         {/* Subtitle */}
         <div className="max-w-2xl mx-auto mt-8">
           <AnimatedText
-            className="text-slate-400 text-base sm:text-lg md:text-xl leading-relaxed"
+            className="text-white text-base sm:text-lg md:text-xl leading-relaxed"
             delay={0.55}
             stagger={0.02}
           >

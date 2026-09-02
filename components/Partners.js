@@ -8,7 +8,7 @@ const PARTNERS = [
   { name: "BlackSky", logo: "/images/partners/blacksky-logo-white.webp" },
   {
     name: "Capella Space",
-    logo: "/images/partners/Capella.svg",
+    logo: "/images/partners/Capella2.svg",
   },
   {
     name: "Skyroot Aerospace",
@@ -55,13 +55,14 @@ export default function Partners() {
       >
         Strategic Partners
       </motion.h2>
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: "-80px" }}
           transition={{ duration: 0.9, ease: EASE_SMOOTH }}
           className="relative rounded-3xl border border-white/10 backdrop-blur-sm px-4 sm:px-8 py-10 sm:py-16 overflow-hidden"
+          style={{ paddingTop: "2%", paddingBottom: "2%" }}
         >
           {/* Slideshow */}
           <div className="relative h-16 sm:h-24 flex items-center justify-center overflow-hidden">

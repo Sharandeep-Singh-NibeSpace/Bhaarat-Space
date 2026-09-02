@@ -31,13 +31,13 @@ export default function WhoWeAre() {
           viewport={{ once: false, margin: "-80px" }}
           transition={{ duration: 0.9, delay: 0.15, ease: EASE_SMOOTH }}
         >
-          <AnimatedText className="text-slate-400 text-base leading-relaxed" stagger={0.012}>
+          <AnimatedText className="text-white text-base leading-relaxed" stagger={0.012}>
             {
               "With a core focus on strategic defense, environmental monitoring, and infrastructure management, Bharat Space supports India's mission for self-reliance through the Atma Nirbhar Bharat initiative and the Make in India movement."
             }
           </AnimatedText>
           <AnimatedText
-            className="text-slate-400 text-base leading-relaxed"
+            className="text-white text-base leading-relaxed"
             delay={0.1}
             stagger={0.012}
           >
@@ -58,7 +58,7 @@ export default function WhoWeAre() {
           className="rounded-xl border border-white/10 bg-space-500 p-7"
         >
           <h3 className="text-white font-semibold text-lg sm:text-xl mb-3">Strategic Defense</h3>
-          <p className="text-slate-400 text-base leading-relaxed">
+          <p className="text-white text-base leading-relaxed">
             Precision Earth observation tailored to national security, border
             monitoring, and rapid-response defense operations.
           </p>
@@ -74,7 +74,7 @@ export default function WhoWeAre() {
           <h3 className="text-white font-semibold text-lg sm:text-xl mb-3">
             Infrastructure &amp; Environment
           </h3>
-          <p className="text-slate-400 text-base leading-relaxed">
+          <p className="text-white text-base leading-relaxed">
             High-revisit imagery supporting infrastructure planning,
             environmental monitoring, and disaster response across India.
           </p>

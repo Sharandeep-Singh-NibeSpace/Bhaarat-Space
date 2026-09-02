@@ -11,11 +11,13 @@ const NAV_LINKS = [
   { label: "Our Solution", href: "/#solution" },
   { label: "Constellation", href: "/#sensors" },
   { label: "Image Analytics", href: "/image-analytics" },
+  { label: "Test", href: "/test" },
 ];
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const isTest = pathname === "/test";
 
   useEffect(() => {
     setOpen(false);
@@ -23,13 +25,15 @@ export default function NavBar() {
 
   return (
     <header className="sticky top-0 z-50">
-      {/* Background Video */}
-      <BgVideo
-        className="absolute inset-0 w-full h-full object-cover -z-10"
-        src="/videos/test2.mp4"
-        poster="/videos/posters/test2.jpg"
-        priority
-      />
+      {/* Background Video — hidden on /test so the galaxy shows through */}
+      {!isTest && (
+        <BgVideo
+          className="absolute inset-0 w-full h-full object-cover -z-10"
+          src="/videos/test2.mp4"
+          poster="/videos/posters/test2.jpg"
+          priority
+        />
+      )}
 
       {/* Top Bar */}
       <div className="relative max-w-7xl mx-auto flex items-center justify-between gap-3 px-4 sm:px-8 py-3 sm:py-4">
@@ -37,7 +41,8 @@ export default function NavBar() {
         <Link href="/" className="shrink-0">
           <img
             src="/images/Bharat Space2.svg"
-            className="h-10 sm:h-[50px] w-auto"
+            className="h-10 sm:h-[90px] w-auto"
+            style={{ marginTop: "-16%", marginBottom: "-15%" }}
             alt="Bharat Space Logo"
           />
         </Link>

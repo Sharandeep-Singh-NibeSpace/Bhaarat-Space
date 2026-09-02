@@ -1,6 +1,6 @@
 "use client";
 
-import BgVideo from "./BgVideo";
+import { usePathname } from "next/navigation";
 
 /**
  * Fixed, full-viewport background using the same video as the homepage Hero.
@@ -14,6 +14,9 @@ import BgVideo from "./BgVideo";
  * paint its own opaque background).
  */
 export default function SiteBackground() {
+  const pathname = usePathname();
+  if (pathname === "/test") return null;
+
   return (
     <div className="fixed inset-0 -z-10 pointer-events-none">
       <video

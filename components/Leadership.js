@@ -76,7 +76,7 @@ export default function Leadership() {
                 {m.name}
               </h3>
               <AnimatedText
-                className="text-slate-400 text-base sm:text-lg leading-relaxed"
+                className="text-white text-base sm:text-lg leading-relaxed"
                 stagger={0.006}
                 once
               >

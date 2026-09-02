@@ -1,49 +1,60 @@
 "use client";
 
-import { motion } from "framer-motion";
-import BgVideo from "./BgVideo";
-import { EASE_SMOOTH } from "./ui";
+import { useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
+
+const GalaxyBackground = dynamic(() => import("./GalaxyBackground"), {
+  ssr: false,
+});
 
 export default function AboutTopHero() {
+  const sectionRef = useRef(null);
+  const scrollRef = useRef(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const el = sectionRef.current;
+      if (!el) return;
+      const max = Math.max(1, el.offsetHeight - window.innerHeight);
+      const scrolled = -el.getBoundingClientRect().top;
+      scrollRef.current = Math.min(1, Math.max(0, scrolled / max));
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <section className="relative w-full h-[55vh] sm:h-[75vh] md:h-[90vh] min-h-[320px] sm:min-h-[420px] max-h-[720px] overflow-hidden flex items-center justify-center">
-      {/* Full-bleed Earth video background */}
-      <BgVideo
-        className="w-full h-full object-cover"
-        src="/videos/about_page_video.mp4"
-        poster="/videos/posters/about_page_video.jpg"
-        priority
-      />
+    <section ref={sectionRef} className="relative h-[600vh]">
+      <div className="sticky top-0 h-screen overflow-hidden bg-transparent">
+        <GalaxyBackground scrollRef={scrollRef} transparent />
 
-      {/* Contrast overlay so the heading stays readable over the bright video */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/35 to-space-500" />
-      <div className="absolute inset-0 bg-black/10" />
+        <div className="pointer-events-none absolute inset-0 z-10">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <a
+              href="#about-content"
+              className="relative pointer-events-auto px-10 sm:px-12 py-2.5 sm:py-3 rounded-full text-[13px] sm:text-xl text-white/80 tracking-wide"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(48,48,54,0.92), rgba(10,10,14,0.96))",
+                border: "1px solid rgba(255,255,255,0.14)",
+                boxShadow:
+                  "inset 0 1px 0 rgba(255,255,255,0.16), 0 10px 40px rgba(0,0,0,0.45)",
+              }}
+            >
+              About Bharat Space
+              <span className="absolute -top-1 right-3 h-2 w-2 rounded-full bg-white animate-pulse" />
+            </a>
+          </div>
 
-      {/* Centered heading */}
-      <motion.h1
-        initial={{ opacity: 0, y: 30, scale: 0.96 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 1, ease: EASE_SMOOTH }}
-        className="relative z-10 text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold uppercase tracking-tight text-white px-4 sm:px-6 leading-[1.1] drop-shadow-[0_2px_20px_rgba(0,0,0,0.6)]"
-      >
-        About Bharat Space
-      </motion.h1>
-
-      {/* Scroll cue */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.6, ease: EASE_SMOOTH }}
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          className="w-6 h-10 rounded-full border-2 border-white/40 flex items-start justify-center p-1.5"
-        >
-          <div className="w-1.5 h-1.5 rounded-full bg-white/80" />
-        </motion.div>
-      </motion.div>
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+            <span className="text-[10px] tracking-[0.38em] text-white/40">
+              SCROLL
+            </span>
+            <span className="h-8 w-px bg-white/30" />
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

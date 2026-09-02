@@ -37,7 +37,7 @@ export default function Team() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 0.7, delay: 0.15, ease: EASE_SMOOTH }}
-          className="text-slate-400 text-center max-w-2xl mx-auto mb-10 text-base md:text-lg leading-relaxed"
+          className="text-white text-center max-w-2xl mx-auto mb-10 text-base md:text-lg leading-relaxed"
         >
           Passionate experts committed to building India&apos;s future in space
           technology
