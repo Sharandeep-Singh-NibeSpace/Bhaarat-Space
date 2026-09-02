@@ -198,7 +198,7 @@ export default function Hero() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               transition={{ duration: 0.8 }}
-              className="mb-6 inline-flex w-fit max-w-full self-start gap-2 rounded-full border border-sky-700/50 bg-sky-900/30 px-3.5 py-2 text-xs uppercase tracking-[0.12em] text-sky-300 sm:mb-8 sm:px-4 sm:text-[13px] sm:tracking-[0.18em]"
+              className="mb-5 inline-flex w-fit max-w-full self-start gap-2 rounded-full border border-sky-700/50 bg-sky-900/30 px-3 py-1.5 text-[11px] uppercase tracking-[0.12em] text-sky-300 sm:mb-7 sm:px-3.5 sm:text-xs sm:tracking-[0.16em]"
             >
               <span className="text-sky-400">★</span>
               India&apos;s first multi-mission EO &amp; SAR constellation
@@ -209,7 +209,7 @@ export default function Hero() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               transition={{ duration: 3, ease: [0.25, 0.1, 0.25, 1] }}
-              className="text-left text-4xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
+              className="text-left text-3xl font-extrabold leading-[1.15] tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl"
             >
               Sub-90
               <br />
@@ -225,7 +225,7 @@ export default function Hero() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               transition={{ duration: 0.9, delay: 1 }}
-              className="mt-6 max-w-xl text-left text-base leading-relaxed text-white sm:text-lg"
+              className="mt-5 max-w-xl text-left text-sm leading-relaxed text-white sm:mt-6 sm:text-base"
             >
               High-resolution Earth Observation and SAR satellites,
               purpose-built for strategic defense and national resilience.
@@ -236,17 +236,17 @@ export default function Hero() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               transition={{ duration: 0.8, delay: 1 }}
-              className="mt-8 flex flex-col items-stretch gap-4 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-stretch sm:gap-5"
+              className="mt-7 flex flex-col items-stretch gap-3.5 sm:mt-9 sm:flex-row sm:flex-wrap sm:items-stretch sm:gap-4"
             >
               <a
                 href="#solution"
-                className="inline-flex min-h-[48px] items-center justify-center rounded-md bg-sky-500 px-6 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-sky-400 sm:min-h-[52px] sm:px-7 sm:text-base"
+                className="inline-flex min-h-[44px] items-center justify-center rounded-md bg-sky-500 px-5 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-sky-400 sm:min-h-[48px] sm:px-6"
               >
                 Explore the Constellation
               </a>
               <Link
                 href="/contact"
-                className="inline-flex min-h-[48px] items-center justify-center rounded-md border border-slate-600/70 bg-slate-950/40 px-6 py-3 text-center text-sm font-semibold text-slate-200 backdrop-blur-md transition-colors hover:border-slate-400 hover:bg-slate-950/55 sm:min-h-[52px] sm:px-7 sm:text-base"
+                className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-slate-600/70 bg-slate-950/40 px-5 py-2.5 text-center text-sm font-semibold text-slate-200 backdrop-blur-md transition-colors hover:border-slate-400 hover:bg-slate-950/55 sm:min-h-[48px] sm:px-6"
               >
                 Talk to Us
               </Link>
