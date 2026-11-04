@@ -1,5 +1,6 @@
 import Link from "next/link";
 import BgVideo from "./BgVideo";
+import { publicPath } from "@/lib/publicPath";
 
 const FOOTER_LINKS = [
   { label: "Home", href: "/" },
@@ -31,7 +32,7 @@ export default function FooterIndexPage() {
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <Link href="/" className="flex items-center gap-2">
             <img
-              src="/images/Bharat Space2.svg"
+              src={publicPath("/images/Bharat Space2.svg")}
               alt="Bharat Space"
               className="h-12 sm:h-[70px] w-auto"
             />

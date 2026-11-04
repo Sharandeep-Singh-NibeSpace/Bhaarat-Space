@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { publicPath } from "@/lib/publicPath";
 
 const STATS = [
   { value: "2026", label: "Launch Year" },
@@ -25,10 +26,12 @@ export default function Hero() {
   const zoomT = useRef(0);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [earthSrc, setEarthSrc] = useState(
-    process.env.NEXT_PUBLIC_HERO_VIDEO || "/videos/earth_bg.mp4",
+    publicPath(process.env.NEXT_PUBLIC_HERO_VIDEO || "/videos/earth_bg.mp4"),
   );
   const [earthPoster, setEarthPoster] = useState(
-    process.env.NEXT_PUBLIC_HERO_POSTER || "/videos/posters/earth_bg.jpg",
+    publicPath(
+      process.env.NEXT_PUBLIC_HERO_POSTER || "/videos/posters/earth_bg.jpg",
+    ),
   );
   const [revisitMin, setRevisitMin] = useState(180);
 
@@ -39,8 +42,8 @@ export default function Hero() {
     motionMq.addEventListener("change", onMotion);
 
     if (window.matchMedia("(max-width: 767px)").matches) {
-      setEarthSrc("/videos/earth_bg.mp4");
-      setEarthPoster("/videos/posters/earth_bg.jpg");
+      setEarthSrc(publicPath("/videos/earth_bg.mp4"));
+      setEarthPoster(publicPath("/videos/posters/earth_bg.jpg"));
     }
 
     const onScroll = () => {
@@ -181,7 +184,7 @@ export default function Hero() {
           aria-hidden="true"
         >
           <img
-            src="/images/Bharat Space2.svg"
+            src={publicPath("/images/Bharat Space2.svg")}
             alt=""
             className="h-auto w-[min(86vw,920px)] origin-center will-change-transform"
             style={{ transform: "scale(0.2)" }}

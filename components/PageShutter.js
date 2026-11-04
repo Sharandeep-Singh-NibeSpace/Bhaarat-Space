@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import { publicPath } from "@/lib/publicPath";
 
 // How long the shutter stays fully closed (logo visible) before opening
 const HOLD_MS = 500;
@@ -92,7 +93,7 @@ export default function PageShutter() {
         }}
       >
         <img
-          src="/images/Bharat Space2.svg"
+          src={publicPath("/images/Bharat Space2.svg")}
           alt="Bharat Space"
           style={{ height: "205px", width: "auto" }}
         />

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Eyebrow, AnimatedText, EASE_SMOOTH } from "./ui";
 import { useState, useEffect } from "react";
+import { publicPath } from "@/lib/publicPath";
 
 const PARTNERS = [
   { name: "BlackSky", logo: "/images/partners/blacksky-logo-white.webp" },
@@ -83,7 +84,7 @@ export default function Partners() {
                 className="absolute inset-x-0 flex justify-center items-center px-4"
               >
                 <img
-                  src={partner.logo}
+                  src={publicPath(partner.logo)}
                   alt={partner.name}
                   className="max-h-12 sm:max-h-20 max-w-full w-auto object-contain"
                 />

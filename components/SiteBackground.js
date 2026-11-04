@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { publicPath } from "@/lib/publicPath";
 
 /**
  * Fixed, full-viewport background using the same video as the homepage Hero.
@@ -22,7 +23,7 @@ export default function SiteBackground() {
       <video
         className="absolute inset-0 w-full h-full object-cover"
         // src="/videos/3.mp4"
-        src="/videos/bg-invert.mp4"
+        src={publicPath("/videos/bg-invert.mp4")}
         // poster="/videos/hero-poster.jpg"
         autoPlay
         muted

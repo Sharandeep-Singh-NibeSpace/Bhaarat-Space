@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { EASE_SMOOTH } from "./ui";
+import { publicPath } from "@/lib/publicPath";
 
 const TEAM = [
   {
@@ -61,7 +62,7 @@ export default function Team() {
               {/* Full photo — natural height so faces are not cropped in half */}
               <div className="overflow-hidden w-full bg-black/20">
                 <img
-                  src={member.image}
+                  src={publicPath(member.image)}
                   alt={member.name}
                   className="w-full h-auto object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 />

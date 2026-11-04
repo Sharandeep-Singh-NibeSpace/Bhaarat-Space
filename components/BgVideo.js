@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { publicPath } from "@/lib/publicPath";
 
 /**
  * Background video that:
@@ -69,7 +70,7 @@ export default function BgVideo({
     <div ref={wrapperRef} className="absolute inset-0 overflow-hidden">
       {poster && (
         <img
-          src={poster}
+          src={publicPath(poster)}
           alt=""
           aria-hidden="true"
           className={`${className} transition-opacity duration-500 ${
@@ -85,8 +86,8 @@ export default function BgVideo({
             loaded ? "opacity-100" : "opacity-0"
           }`}
           style={{ position: "absolute", inset: 0 }}
-          src={src}
-          poster={poster}
+          src={publicPath(src)}
+          poster={publicPath(poster)}
           autoPlay={priority}
           muted
           loop

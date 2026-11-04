@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { EASE_SMOOTH } from "./ui";
+import { publicPath } from "@/lib/publicPath";
 
 const FOOTER_LINKS = [
   { label: "Home", href: "/" },
@@ -39,7 +40,7 @@ export default function Footer() {
           >
             <Link href="/" className="flex items-center gap-2">
               <img
-                src="/images/Bharat Space2.svg"
+                src={publicPath("/images/Bharat Space2.svg")}
                 alt="Bharat Space"
                 className="h-12 sm:h-[70px] w-auto"
               />

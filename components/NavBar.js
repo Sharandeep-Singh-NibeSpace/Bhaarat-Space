@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import BgVideo from "./BgVideo";
+import { publicPath } from "@/lib/publicPath";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -40,7 +41,7 @@ export default function NavBar() {
         {/* Logo */}
         <Link href="/" className="shrink-0">
           <img
-            src="/images/Bharat Space2.svg"
+            src={publicPath("/images/Bharat Space2.svg")}
             className="h-10 sm:h-[90px] w-auto"
             style={{ marginTop: "-16%", marginBottom: "-15%" }}
             alt="Bharat Space Logo"

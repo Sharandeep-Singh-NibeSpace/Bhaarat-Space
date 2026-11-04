@@ -1,6 +1,11 @@
 /** @type {import('next').NextConfig} */
+// Empty in local dev and on Vercel, so those stay at /. The VPS deploy script
+// sets NEXT_PUBLIC_BASE_PATH=/Bharat before `next build`.
+const basePath = (process.env.NEXT_PUBLIC_BASE_PATH || "").replace(/\/$/, "");
+
 const nextConfig = {
   reactStrictMode: true,
+  basePath,
   async headers() {
     return [
       {

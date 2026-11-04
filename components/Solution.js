@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Eyebrow } from "./ui";
+import { publicPath } from "@/lib/publicPath";
 import { SatelliteGlyph } from "./ui"; // if needed
 
 const SOLUTION_CARDS = [
@@ -138,7 +139,7 @@ export default function Solution() {
                 style={{ height: "fit-content" }}
               >
                 <img
-                  src={card.image}
+                  src={publicPath(card.image)}
                   alt={card.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />

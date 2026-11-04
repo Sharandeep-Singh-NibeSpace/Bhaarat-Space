@@ -5,6 +5,7 @@ import BgVideo from "./BgVideo";
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { Eyebrow, Pill, AnimatedText, EASE_SMOOTH } from "./ui";
+import { publicPath } from "@/lib/publicPath";
 
 const LERP = 0.08;
 
@@ -106,7 +107,7 @@ export default function About() {
               <video
                 ref={videoRef}
                 className="absolute inset-0 h-full w-full object-cover"
-                src="/videos/earth.webm"
+                src={publicPath("/videos/earth.webm")}
                 autoPlay
                 muted
                 loop
@@ -116,7 +117,7 @@ export default function About() {
             </div>
             <img
               ref={satRef}
-              src="/images/SAR_2.svg"
+              src={publicPath("/images/SAR_2.svg")}
               alt=""
               aria-hidden="true"
               className="pointer-events-none absolute z-20 h-auto w-[32%] max-w-[200px] origin-center will-change-transform"

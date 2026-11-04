@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Eyebrow, AnimatedText, EASE_SMOOTH } from "./ui";
+import { publicPath } from "@/lib/publicPath";
 
 const FOCUS = [
   {
@@ -47,7 +48,7 @@ export default function OurFocus() {
             {/* Image Container */}
             <div className="h-48 flex items-center justify-center bg-gradient-to-b from-space-200 to-space-500 overflow-hidden">
               <img
-                src={f.image}
+                src={publicPath(f.image)}
                 alt={f.eyebrow}
                 className="w-full h-full object-cover"
               />

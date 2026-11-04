@@ -1,0 +1,19 @@
+[Unit]
+Description=Bharat Space website (Next.js on 127.0.0.1:3010, public path /Bharat)
+After=network.target
+
+[Service]
+Type=simple
+User=__USER__
+Group=__USER__
+WorkingDirectory=__APP_DIR__
+Environment=NODE_ENV=production
+Environment=NEXT_PUBLIC_BASE_PATH=/Bharat
+ExecStart=__NODE__ __APP_DIR__/node_modules/next/dist/bin/next start -H 127.0.0.1 -p 3010
+Restart=on-failure
+RestartSec=5
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

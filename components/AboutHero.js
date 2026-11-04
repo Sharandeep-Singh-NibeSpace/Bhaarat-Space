@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { Eyebrow, Pill, AnimatedText, EASE_SMOOTH } from "./ui";
+import { publicPath } from "@/lib/publicPath";
 
 export default function AboutHero() {
   const sectionRef = useRef(null);
@@ -38,7 +39,7 @@ export default function AboutHero() {
             <video
               ref={videoRef}
               className="absolute inset-0 w-full h-full object-cover"
-              src="/videos/earth.webm"
+              src={publicPath("/videos/earth.webm")}
               autoPlay
               muted
               loop

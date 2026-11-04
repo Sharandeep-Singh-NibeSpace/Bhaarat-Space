@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Eyebrow, AnimatedText, EASE_SMOOTH } from "./ui";
+import { publicPath } from "@/lib/publicPath";
 
 const TEAM = [
   {
@@ -54,7 +55,7 @@ export default function Leadership() {
               {m.image && !m.image.includes("/images/.avif") ? (
                 <div className="relative w-52 h-52 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full overflow-hidden ring-2 ring-sky-400/70 ring-offset-2 sm:ring-offset-4 ring-offset-[#0a0f1c] shadow-xl">
                   <img
-                    src={m.image}
+                    src={publicPath(m.image)}
                     alt={m.name}
                     className="w-full h-full object-cover object-top"
                     loading="eager"

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Eyebrow } from "./ui";
+import { publicPath } from "@/lib/publicPath";
 
 const EASE_SMOOTH = [0.22, 1, 0.36, 1];
 const LERP = 0.06;
@@ -60,7 +61,7 @@ function SensorVisual({ kind, image, zoomRef }) {
       >
         {isVideo ? (
           <video
-            src={image}
+            src={publicPath(image)}
             className="absolute inset-0 h-full w-full object-contain"
             autoPlay
             muted
@@ -69,7 +70,7 @@ function SensorVisual({ kind, image, zoomRef }) {
           />
         ) : (
           <img
-            src={image}
+            src={publicPath(image)}
             alt={`${kind} satellite`}
             className="absolute inset-0 h-full w-full object-contain"
           />
