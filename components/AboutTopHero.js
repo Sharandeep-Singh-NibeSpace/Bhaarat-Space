@@ -8,16 +8,15 @@ const GalaxyBackground = dynamic(() => import("./GalaxyBackground"), {
 });
 
 export default function AboutTopHero() {
-  const sectionRef = useRef(null);
   const scrollRef = useRef(0);
 
   useEffect(() => {
     const onScroll = () => {
-      const el = sectionRef.current;
-      if (!el) return;
-      const max = Math.max(1, el.offsetHeight - window.innerHeight);
-      const scrolled = -el.getBoundingClientRect().top;
-      scrollRef.current = Math.min(1, Math.max(0, scrolled / max));
+      const max = Math.max(
+        1,
+        document.documentElement.scrollHeight - window.innerHeight,
+      );
+      scrollRef.current = Math.min(1, Math.max(0, window.scrollY / max));
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -25,11 +24,13 @@ export default function AboutTopHero() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative h-[600vh]">
-      <div className="sticky top-0 h-screen overflow-hidden bg-transparent">
-        <GalaxyBackground scrollRef={scrollRef} transparent />
+    <>
+      <div className="pointer-events-none fixed inset-0 z-0">
+        <GalaxyBackground scrollRef={scrollRef} />
+      </div>
 
-        <div className="pointer-events-none absolute inset-0 z-10">
+      <section className="relative z-10 h-screen overflow-hidden">
+        <div className="pointer-events-none absolute inset-0">
           <div className="absolute inset-0 flex items-center justify-center">
             <a
               href="#about-content"
@@ -54,7 +55,7 @@ export default function AboutTopHero() {
             <span className="h-8 w-px bg-white/30" />
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

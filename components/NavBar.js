@@ -17,7 +17,7 @@ const NAV_LINKS = [
 export default function NavBar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const isTest = pathname === "/test";
+  const isGalaxyPage = pathname === "/test" || pathname === "/about";
 
   useEffect(() => {
     setOpen(false);
@@ -25,8 +25,8 @@ export default function NavBar() {
 
   return (
     <header className="sticky top-0 z-50">
-      {/* Background Video — hidden on /test so the galaxy shows through */}
-      {!isTest && (
+      {/* Background Video — hidden on galaxy pages so the scene shows through */}
+      {!isGalaxyPage && (
         <BgVideo
           className="absolute inset-0 w-full h-full object-cover -z-10"
           src="/videos/test2.mp4"

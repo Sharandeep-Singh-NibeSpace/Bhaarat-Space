@@ -17,16 +17,18 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen">
+    <main className="relative min-h-screen bg-black">
       <NavBar />
       <AboutTopHero />
-      <AboutHero />
-      <WhoWeAre />
-      <OurFocus />
-      <Leadership />
-      <Partners />
-      <Team />
-      <Footer />
+      <div className="relative z-10">
+        <AboutHero />
+        <WhoWeAre />
+        <OurFocus />
+        <Leadership />
+        <Partners />
+        <Team />
+        <Footer />
+      </div>
     </main>
   );
 }

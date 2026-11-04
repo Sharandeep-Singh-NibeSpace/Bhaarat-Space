@@ -25,7 +25,8 @@ export default function ContactForm() {
               About Us
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold text-white leading-snug mb-5 tracking-tight">
-              Connect for excellence: your gateway to exceptional solutions.
+              Connect for excellence: <br />
+              your gateway to exceptional solutions.
             </h2>
             <p className="text-white text-base leading-relaxed mb-8">
               Reach out with questions, feedback, or collaboration inquiries.
@@ -50,7 +51,10 @@ export default function ContactForm() {
             transition={{ duration: 0.9, delay: 0.15 }}
             className="relative rounded-2xl border border-white/10 backdrop-blur p-5 sm:p-7 space-y-4 min-w-0"
           >
-            <div className="absolute overflow-hidden w-px h-px -m-px" aria-hidden="true">
+            <div
+              className="absolute overflow-hidden w-px h-px -m-px"
+              aria-hidden="true"
+            >
               <input
                 tabIndex={-1}
                 autoComplete="off"

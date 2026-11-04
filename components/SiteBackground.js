@@ -15,7 +15,7 @@ import { usePathname } from "next/navigation";
  */
 export default function SiteBackground() {
   const pathname = usePathname();
-  if (pathname === "/test") return null;
+  if (pathname === "/test" || pathname === "/about") return null;
 
   return (
     <div className="fixed inset-0 -z-10 pointer-events-none">
