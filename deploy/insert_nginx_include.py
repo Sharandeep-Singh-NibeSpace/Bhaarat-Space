@@ -186,14 +186,18 @@ def insert_include(path):
             f"{path}. No site was changed."
         )
     _score, close_at, reason = chosen
-    needle = "\n    " + INCLUDE + "\n"
-    updated = text[:close_at] + needle + text[close_at:]
-    if updated.replace(needle, "", 1) != text:
+    prefix = text[:close_at]
+    eol = "\r\n" if "\r\n" in text else "\n"
+    insertion = "    " + INCLUDE + eol
+    if not prefix.endswith(("\n", "\r\n")):
+        insertion = eol + insertion
+    updated = prefix + insertion + text[close_at:]
+    if updated.replace(insertion, "", 1) != text:
         raise SystemExit(
             "Refusing to write nginx config because the edit would change "
             "more than the Bharat include. No site was changed."
         )
-    path.write_text(updated, encoding="utf-8")
+    path.write_bytes(updated.encode("utf-8"))
     print(f"Inserted include into {path} ({reason})", file=sys.stderr)
 
 

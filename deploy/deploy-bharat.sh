@@ -338,7 +338,8 @@ if [ "$LOCATION_BEFORE" != "$LOCATION_AFTER" ]; then
 fi
 
 DIFF_OUTPUT=$(diff -u "$BACKUP" "$NGINX_TARGET" || true)
-EXTRA=$(printf '%s\n' "$DIFF_OUTPUT" | grep -E '^[+-]' | grep -vE '^[+-]{3} ' | grep -v 'include /etc/nginx/snippets/bharat-space.conf' || true)
+# A blank line beside the include is not a change to another site.
+EXTRA=$(printf '%s\n' "$DIFF_OUTPUT" | grep -E '^[+-]' | grep -vE '^[+-]{3} ' | grep -v 'include /etc/nginx/snippets/bharat-space.conf' | grep -vE '^[+-][[:space:]]*$' || true)
 if [ -n "$EXTRA" ]; then
   echo "The nginx edit changed more than the Bharat include. Restoring $BACKUP"
   echo "$EXTRA"
@@ -425,7 +426,17 @@ do
 done
 
 redirect=$(http_location "http://127.0.0.1${BASE_PATH}/about/" "$PUBLIC_IP" || true)
-if [ "$redirect" != "${BASE_PATH}/about" ]; then
+case "$redirect" in
+  "${BASE_PATH}/about"|"${BASE_PATH}/about/"|\
+  "http://${PUBLIC_IP}${BASE_PATH}/about"|"http://${PUBLIC_IP}${BASE_PATH}/about/"|\
+  "http://127.0.0.1${BASE_PATH}/about"|"http://127.0.0.1${BASE_PATH}/about/")
+    redirect_ok=1
+    ;;
+  *)
+    redirect_ok=0
+    ;;
+esac
+if [ "$redirect_ok" -ne 1 ]; then
   echo "Trailing-slash redirect went to '${redirect}' instead of ${BASE_PATH}/about. Restoring $BACKUP"
   cp -a "$BACKUP" "$NGINX_TARGET"
   nginx -t
