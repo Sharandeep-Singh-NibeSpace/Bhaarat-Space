@@ -1,5 +1,5 @@
 [Unit]
-Description=Bharat Space website (Next.js on 127.0.0.1:3010, public path /Bharat)
+Description=Bharat Space website (Next.js on 127.0.0.1:__PORT__, public path /Bharat)
 After=network.target
 StartLimitIntervalSec=60
 StartLimitBurst=5
@@ -11,7 +11,7 @@ Group=__USER__
 WorkingDirectory=__APP_DIR__
 Environment=NODE_ENV=production
 Environment=NEXT_PUBLIC_BASE_PATH=/Bharat
-ExecStart=__NODE__ __APP_DIR__/node_modules/next/dist/bin/next start -H 127.0.0.1 -p 3010
+ExecStart=__NODE__ __APP_DIR__/node_modules/next/dist/bin/next start -H 127.0.0.1 -p __PORT__
 Restart=on-failure
 RestartSec=5
 

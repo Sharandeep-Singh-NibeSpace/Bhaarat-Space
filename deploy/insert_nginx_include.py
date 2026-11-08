@@ -1,19 +1,22 @@
 #!/usr/bin/env python3
-"""Insert the Bharat Space include into the nginx server block that listens
-on port 80. Existing location blocks are left as they are.
+"""Add the Bharat Space include to the one nginx server that answers the public IP.
+
+Other server blocks and other files are not modified.
 
   insert_nginx_include.py --find
       Print the config file that should be edited.
 
   insert_nginx_include.py /path/to/file.conf
-      Insert the include into that file.
+      Insert the include into the chosen server block of that file.
 """
+import os
 import re
 import subprocess
 import sys
 from pathlib import Path
 
 INCLUDE = "include /etc/nginx/snippets/bharat-space.conf;"
+PUBLIC_IP = os.environ.get("BHARAT_PUBLIC_IP", "200.97.168.12")
 MARKERS = (
     "location /data-analysis/",
     "location /image-analysis/",
@@ -22,6 +25,7 @@ MARKERS = (
 LISTEN_80 = re.compile(
     r"listen\s+(?:\[::\]:|0\.0\.0\.0:|\*:)?80(?!\d)"
 )
+CATCHALL_NAMES = {"_", PUBLIC_IP, "localhost", "127.0.0.1"}
 
 
 def closing_brace(text, open_index):
@@ -51,54 +55,63 @@ def server_blocks(text):
     return blocks
 
 
-def port80_server_close(text):
-    found = []
-    for brace, end, block in server_blocks(text):
-        if LISTEN_80.search(block):
-            found.append((block.count("location"), end, block))
-    if not found:
+def server_names(block):
+    names = []
+    for match in re.finditer(r"server_name\s+([^;]*);", block):
+        names.extend(match.group(1).split())
+    return names
+
+
+def score_server(block, order):
+    """Higher score is the server that receives http://PUBLIC_IP/."""
+    if not LISTEN_80.search(block):
         return None
-    found.sort(key=lambda item: item[0], reverse=True)
-    return found[0][1]
+    score = 0.0
+    reasons = []
+    if re.search(r"\bdefault_server\b", block):
+        score += 100
+        reasons.append("default_server")
+    names = server_names(block)
+    if PUBLIC_IP in names:
+        score += 80
+        reasons.append("server_name is the public IP")
+    if not names or "_" in names:
+        score += 40
+        reasons.append("catch-all server_name")
+    domains = [
+        name for name in names
+        if name not in CATCHALL_NAMES and not re.fullmatch(r"\d+\.\d+\.\d+\.\d+", name)
+    ]
+    if domains and not re.search(r"\bdefault_server\b", block) and PUBLIC_IP not in names:
+        score -= 50
+        reasons.append("named site " + domains[0])
+    for marker in MARKERS:
+        if marker in block:
+            score += 25
+            reasons.append("existing shared apps")
+            break
+    # nginx uses the first server as the implicit default when none is marked.
+    score -= order * 0.01
+    if not reasons:
+        reasons.append("first port-80 server")
+    return score, ", ".join(reasons)
 
 
-def server_close_index(text, marker_at):
-    depth = 0
-    i = marker_at
-    while i >= 0:
-        char = text[i]
-        if char == "}":
-            depth += 1
-        elif char == "{":
-            if depth == 0:
-                prefix = text[:i].rstrip()
-                match = re.search(r"([A-Za-z_]+)\s*$", prefix)
-                if match and match.group(1) == "server":
-                    return closing_brace(text, i)
-            else:
-                depth -= 1
-        i -= 1
-    raise SystemExit(
-        "Could not find the server { } block that contains the existing apps"
-    )
+def best_server(text):
+    best = None
+    order = 0
+    for _brace, end, block in server_blocks(text):
+        scored = score_server(block, order)
+        if scored is None:
+            continue
+        score, reason = scored
+        if best is None or score > best[0]:
+            best = (score, end, reason)
+        order += 1
+    return best
 
 
-def config_files():
-    found = []
-    seen = set()
-
-    def add(path):
-        if not path or "bharat-space.conf" in path:
-            return
-        file_path = Path(path)
-        if not file_path.is_file():
-            return
-        real = str(file_path.resolve())
-        if real in seen:
-            return
-        seen.add(real)
-        found.append(file_path)
-
+def loaded_paths():
     try:
         listed = subprocess.run(
             ["nginx", "-T"],
@@ -106,62 +119,56 @@ def config_files():
             text=True,
             check=False,
         )
-    except FileNotFoundError:
-        listed = None
-    if listed is not None:
-        blob = (listed.stdout or "") + "\n" + (listed.stderr or "")
-        for match in re.finditer(
-            r"^# configuration file (.+):$", blob, re.M
-        ):
-            add(match.group(1).strip())
-
-    roots = [Path("/etc/nginx"), Path("/usr/local/nginx/conf"), Path("/usr/local/etc/nginx")]
-    for root in roots:
-        if not root.is_dir():
+    except FileNotFoundError as exc:
+        raise SystemExit("nginx is not installed; no site was changed.") from exc
+    dump = listed.stdout or ""
+    paths = []
+    seen = set()
+    for match in re.finditer(r"^# configuration file (.+):\s*$", dump, re.M):
+        raw = match.group(1).strip()
+        if "bharat-space.conf" in raw:
             continue
-        for file_path in root.rglob("*"):
-            if file_path.is_file() and (
-                file_path.suffix == ".conf" or file_path.name == "default"
-            ):
-                add(str(file_path))
-    return found
+        file_path = Path(raw)
+        if not file_path.is_file():
+            continue
+        real = file_path.resolve()
+        if real in seen:
+            continue
+        seen.add(real)
+        paths.append(real)
+    if not paths:
+        raise SystemExit(
+            "nginx -T did not list a config file. No site was changed."
+        )
+    return paths
 
 
-def choose_file(paths):
-    marked = []
-    port80 = []
+def choose_from_paths(paths):
+    best = None
+    order = 0
     for path in paths:
-        text = path.read_text(encoding="utf-8", errors="replace")
-        if "bharat-space.conf" in text:
-            return path
-        if any(marker in text for marker in MARKERS):
-            marked.append(path)
-        if port80_server_close(text) is not None:
-            port80.append(path)
-    if len(marked) == 1:
-        return marked[0]
-    if len(marked) > 1:
+        text = Path(path).read_text(encoding="utf-8", errors="replace")
+        for _brace, _end, block in server_blocks(text):
+            scored = score_server(block, order)
+            if scored is None:
+                continue
+            score, reason = scored
+            if best is None or score > best[0]:
+                best = (score, Path(path).resolve(), reason)
+            order += 1
+    if best is None:
         raise SystemExit(
-            "More than one nginx file contains the existing sites:\n"
-            + "\n".join(f"  {path}" for path in marked)
+            "Could not find a nginx server block that listens on port 80. "
+            "No site was changed."
         )
-    if len(port80) == 1:
-        return port80[0]
-    if len(port80) > 1:
-        raise SystemExit(
-            "More than one nginx file listens on port 80:\n"
-            + "\n".join(f"  {path}" for path in port80)
-            + "\nRe-run with NGINX_FILE=/path/to/the/right/file"
-        )
-    raise SystemExit(
-        "Could not find a nginx server block that listens on port 80."
-    )
+    return best[1], best[2]
 
 
 def insert_include(path):
+    path = Path(path)
     text = path.read_text(encoding="utf-8")
-    if "bharat-space.conf" in text:
-        print("include already present")
+    if INCLUDE in text:
+        print(f"include already present in {path}", file=sys.stderr)
         return
     if (
         "location /Bharat" in text
@@ -170,30 +177,31 @@ def insert_include(path):
     ):
         raise SystemExit(
             "A /Bharat location is already in this file. "
-            "Refusing to add a second one."
+            "Refusing to add a second one. No site was changed."
         )
-    marker_at = -1
-    for marker in MARKERS:
-        marker_at = text.find(marker)
-        if marker_at >= 0:
-            break
-    if marker_at >= 0:
-        close_at = server_close_index(text, marker_at)
-    else:
-        close_at = port80_server_close(text)
-        if close_at is None:
-            raise SystemExit(
-                "Could not find the existing server block "
-                "(no data-analysis, image-analysis, port 3000, or listen 80)."
-            )
-    updated = text[:close_at] + "\n    " + INCLUDE + "\n" + text[close_at:]
+    chosen = best_server(text)
+    if chosen is None:
+        raise SystemExit(
+            "Could not find a port-80 server block in "
+            f"{path}. No site was changed."
+        )
+    _score, close_at, reason = chosen
+    needle = "\n    " + INCLUDE + "\n"
+    updated = text[:close_at] + needle + text[close_at:]
+    if updated.replace(needle, "", 1) != text:
+        raise SystemExit(
+            "Refusing to write nginx config because the edit would change "
+            "more than the Bharat include. No site was changed."
+        )
     path.write_text(updated, encoding="utf-8")
-    print(f"Inserted include into {path}")
+    print(f"Inserted include into {path} ({reason})", file=sys.stderr)
 
 
 def main():
     if len(sys.argv) == 2 and sys.argv[1] == "--find":
-        print(choose_file(config_files()))
+        path, reason = choose_from_paths(loaded_paths())
+        print(f"Chose {path} ({reason}). Other nginx files are not edited.", file=sys.stderr)
+        print(path)
         return
     if len(sys.argv) != 2:
         raise SystemExit(

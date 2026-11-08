@@ -2,9 +2,10 @@
 # Deploy Bharat Space beside the apps already on this VPS.
 #
 # Public URL: http://200.97.168.12/Bharat
-# This script only adds a /Bharat location. It does not edit the other
-# location blocks, and it listens on 127.0.0.1:3010 so it does not take
-# ports 3000, 8000, 8080, or 9090.
+# This script only adds a /Bharat location to the one server that answers
+# that IP. It does not stop nginx or any other site. It listens on
+# 127.0.0.1:3010. If another program already owns 3010, this app moves to
+# the next free port and that program is left running.
 #
 # Run on the server as root, after the project has been uploaded:
 #   bash deploy/deploy-bharat.sh
@@ -128,22 +129,41 @@ fi
 
 # Ask Node, not curl. On this VPS curl could not open 127.0.0.1:3010 even
 # while Next.js was listening, so the first run stopped before nginx changed.
+# Optional second argument is the Host header. Checks of the public IP
+# connect to 127.0.0.1 and send Host: 200.97.168.12, which is the same
+# server a browser hits. Direct checks of this app omit it.
 http_code() {
   "$NODE_BIN" -e '
     const http = require("http");
-    const req = http.get(process.argv[1], (res) => {
+    const url = new URL(process.argv[1]);
+    const headers = {};
+    if (process.argv[2]) headers.Host = process.argv[2];
+    const req = http.get({
+      hostname: url.hostname,
+      port: url.port || 80,
+      path: url.pathname + url.search,
+      headers
+    }, (res) => {
       res.resume();
       process.stdout.write(String(res.statusCode));
     });
     req.on("error", () => process.stdout.write("err"));
     req.setTimeout(20000, () => { req.destroy(); process.stdout.write("err"); });
-  ' "$1"
+  ' "$1" "${2:-}"
 }
 
 http_body() {
   "$NODE_BIN" -e '
     const http = require("http");
-    const req = http.get(process.argv[1], (res) => {
+    const url = new URL(process.argv[1]);
+    const headers = {};
+    if (process.argv[2]) headers.Host = process.argv[2];
+    const req = http.get({
+      hostname: url.hostname,
+      port: url.port || 80,
+      path: url.pathname + url.search,
+      headers
+    }, (res) => {
       let body = "";
       res.setEncoding("utf8");
       res.on("data", (chunk) => { if (body.length < 400000) body += chunk; });
@@ -151,20 +171,28 @@ http_body() {
     });
     req.on("error", () => process.exit(1));
     req.setTimeout(20000, () => { req.destroy(); process.exit(1); });
-  ' "$1"
+  ' "$1" "${2:-}"
 }
 
 http_location() {
   "$NODE_BIN" -e '
     const http = require("http");
-    const req = http.get(process.argv[1], (res) => {
+    const url = new URL(process.argv[1]);
+    const headers = {};
+    if (process.argv[2]) headers.Host = process.argv[2];
+    const req = http.get({
+      hostname: url.hostname,
+      port: url.port || 80,
+      path: url.pathname + url.search,
+      headers
+    }, (res) => {
       res.resume();
       const value = res.headers.location || "";
       process.stdout.write(Array.isArray(value) ? value[0] : value);
     });
     req.on("error", () => process.stdout.write(""));
     req.setTimeout(20000, () => { req.destroy(); });
-  ' "$1"
+  ' "$1" "${2:-}"
 }
 
 if id www-data >/dev/null 2>&1 && [[ "$NODE_BIN" != /root/* ]]; then
@@ -179,30 +207,69 @@ chmod 750 "$APP_DIR/data"
 chmod 640 "$APP_DIR/data/inquiries.json" || true
 chmod 600 "$APP_DIR"/.env.local "$APP_DIR"/.env.production.local 2>/dev/null || true
 
+if [ "$SERVICE_NAME" != "bharat-space" ]; then
+  echo "Refusing to control a service other than bharat-space."
+  exit 1
+fi
+
+port_busy() {
+  ss -ltn | awk '{print $4}' | grep -Eq "(^|:)$1$"
+}
+
+# Leave a healthy Bharat Space process running. Never stop another unit.
+ALREADY_UP=0
+if systemctl is-active --quiet "$SERVICE_NAME"; then
+  running_port=$(systemctl show -p ExecStart --value "$SERVICE_NAME" 2>/dev/null | grep -oE '\-p[[:space:]]*[0-9]+' | grep -oE '[0-9]+' | head -n 1 || true)
+  if [ -n "${running_port:-}" ] && [ "$(http_code "http://127.0.0.1:${running_port}${BASE_PATH}")" = "200" ]; then
+    PORT="$running_port"
+    ALREADY_UP=1
+    echo "Bharat Space is already running on 127.0.0.1:${PORT}. It will not be restarted."
+  fi
+fi
+
+if [ "$ALREADY_UP" -ne 1 ]; then
+  echo "Stopping only ${SERVICE_NAME}. Other web applications keep running."
+  systemctl stop "$SERVICE_NAME" 2>/dev/null || true
+  for _ in 1 2 3 4 5 6 7 8 9 10; do
+    if ! port_busy "$PORT"; then
+      break
+    fi
+    sleep 1
+  done
+  if port_busy "$PORT"; then
+    echo "Port ${PORT} belongs to another program. That program is left running."
+    ss -ltnp | grep ":${PORT}" || true
+    PORT=""
+    for candidate in 3011 3012 3013 3014 3015 3016 3017 3018 3019 3020; do
+      if ! port_busy "$candidate"; then
+        PORT=$candidate
+        break
+      fi
+    done
+    if [ -z "$PORT" ]; then
+      echo "No free port between 3011 and 3020. No application was stopped."
+      exit 1
+    fi
+    echo "Bharat Space will use 127.0.0.1:${PORT} instead."
+  fi
+fi
+
 SERVICE_FILE=/etc/systemd/system/${SERVICE_NAME}.service
 sed \
   -e "s|__USER__|${SERVICE_USER}|g" \
   -e "s|__APP_DIR__|${APP_DIR}|g" \
   -e "s|__NODE__|${NODE_BIN}|g" \
+  -e "s|__PORT__|${PORT}|g" \
   "$APP_DIR/deploy/bharat-space.service" > "$SERVICE_FILE"
 
-# Stop only this unit, then refuse to continue if something else owns the port.
-systemctl stop "$SERVICE_NAME" 2>/dev/null || true
-for _ in 1 2 3 4 5 6 7 8 9 10; do
-  if ! ss -ltn | awk '{print $4}' | grep -Eq "(^|:)${PORT}$"; then
-    break
-  fi
-  sleep 1
-done
-if ss -ltn | awk '{print $4}' | grep -Eq "(^|:)${PORT}$"; then
-  echo "Port ${PORT} is already in use by another program. Nothing else was changed."
-  ss -ltnp | grep ":${PORT}" || true
-  exit 1
+if [ "$ALREADY_UP" -eq 1 ]; then
+  systemctl daemon-reload
+  echo "Other web applications were not stopped."
+else
+  systemctl daemon-reload
+  systemctl enable "$SERVICE_NAME"
+  systemctl restart "$SERVICE_NAME"
 fi
-
-systemctl daemon-reload
-systemctl enable "$SERVICE_NAME"
-systemctl restart "$SERVICE_NAME"
 
 # Next.js requires the /Bharat prefix. http://127.0.0.1:3010/ is a 404.
 ready=0
@@ -241,38 +308,22 @@ if ! command -v python3 >/dev/null 2>&1; then
   apt-get install -y python3
 fi
 
-declare -A NGINX_SEEN=()
-NGINX_FILES=()
-while IFS= read -r conf; do
-  [ -n "$conf" ] || continue
-  real=$(readlink -f "$conf")
-  if [ -z "${NGINX_SEEN[$real]:-}" ]; then
-    NGINX_SEEN[$real]=1
-    NGINX_FILES+=("$real")
-  fi
-done < <(grep -RslI -E "location /data-analysis/|location /image-analysis/|proxy_pass http://127.0.0.1:3000" /etc/nginx 2>/dev/null || true)
-
+export BHARAT_PUBLIC_IP="$PUBLIC_IP"
 if [ -n "${NGINX_FILE:-}" ]; then
   NGINX_TARGET=$(readlink -f "$NGINX_FILE")
-elif [ "${#NGINX_FILES[@]}" -eq 1 ]; then
-  NGINX_TARGET="${NGINX_FILES[0]}"
-elif [ "${#NGINX_FILES[@]}" -eq 0 ]; then
+else
   echo "The app is running on 127.0.0.1:${PORT}${BASE_PATH}"
-  echo "Looking through the live nginx configuration for the port 80 server."
+  echo "Choosing the nginx server that answers http://${PUBLIC_IP}/ ."
+  echo "Other nginx files are not edited, and nginx is only reloaded."
   if ! NGINX_TARGET=$(python3 "$APP_DIR/deploy/insert_nginx_include.py" --find); then
-    echo "Could not find the nginx server block. Nothing else was changed."
+    echo "Could not choose an nginx server. No application was stopped and nginx was not changed."
     exit 1
   fi
-else
-  echo "More than one nginx file contains the existing sites:"
-  printf '  %s\n' "${NGINX_FILES[@]}"
-  echo "Re-run with NGINX_FILE=/path/to/the/right/file so the wrong file is not edited."
-  exit 1
 fi
 
 echo "nginx file: $NGINX_TARGET"
 mkdir -p "$SNIPPET_DIR"
-cp "$APP_DIR/deploy/nginx-bharat.conf" "$SNIPPET_FILE"
+sed "s|__PORT__|${PORT}|g" "$APP_DIR/deploy/nginx-bharat.conf" > "$SNIPPET_FILE"
 
 BACKUP="${NGINX_TARGET}.bak-bharat-$(date +%Y%m%d%H%M%S)"
 cp -a "$NGINX_TARGET" "$BACKUP"
@@ -282,6 +333,15 @@ python3 "$APP_DIR/deploy/insert_nginx_include.py" "$NGINX_TARGET"
 LOCATION_AFTER=$(grep -c "location " "$NGINX_TARGET" || true)
 if [ "$LOCATION_BEFORE" != "$LOCATION_AFTER" ]; then
   echo "The nginx edit changed an existing location block. Restoring $BACKUP"
+  cp -a "$BACKUP" "$NGINX_TARGET"
+  exit 1
+fi
+
+DIFF_OUTPUT=$(diff -u "$BACKUP" "$NGINX_TARGET" || true)
+EXTRA=$(printf '%s\n' "$DIFF_OUTPUT" | grep -E '^[+-]' | grep -vE '^[+-]{3} ' | grep -v 'include /etc/nginx/snippets/bharat-space.conf' || true)
+if [ -n "$EXTRA" ]; then
+  echo "The nginx edit changed more than the Bharat include. Restoring $BACKUP"
+  echo "$EXTRA"
   cp -a "$BACKUP" "$NGINX_TARGET"
   exit 1
 fi
@@ -303,7 +363,7 @@ EXISTING_PATHS=(
 snapshot_codes() {
   local path code
   for path in "${EXISTING_PATHS[@]}"; do
-    code=$(http_code "http://127.0.0.1${path}")
+    code=$(http_code "http://127.0.0.1${path}" "$PUBLIC_IP")
     printf '%s %s\n' "$code" "$path"
   done
 }
@@ -317,6 +377,7 @@ if ! nginx -t; then
   exit 1
 fi
 
+echo "Reloading nginx. Other sites are not restarted."
 systemctl reload nginx
 sleep 1
 
@@ -337,7 +398,7 @@ if [ "$BEFORE_CODES" != "$AFTER_CODES" ]; then
   exit 1
 fi
 
-public_html=$(http_body "http://127.0.0.1${BASE_PATH}" || true)
+public_html=$(http_body "http://127.0.0.1${BASE_PATH}" "$PUBLIC_IP" || true)
 if ! grep -q "${BASE_PATH}/_next/" <<<"$public_html"; then
   echo "http://127.0.0.1${BASE_PATH} did not serve Bharat Space. Restoring $BACKUP"
   cp -a "$BACKUP" "$NGINX_TARGET"
@@ -353,7 +414,7 @@ for path in \
   "${BASE_PATH}/test" \
   "${BASE_PATH}/images/EO.avif"
 do
-  code=$(http_code "http://127.0.0.1${path}")
+  code=$(http_code "http://127.0.0.1${path}" "$PUBLIC_IP")
   if [ "$code" != "200" ]; then
     echo "http://127.0.0.1${path} returned ${code} through nginx. Restoring $BACKUP"
     cp -a "$BACKUP" "$NGINX_TARGET"
@@ -363,7 +424,7 @@ do
   fi
 done
 
-redirect=$(http_location "http://127.0.0.1${BASE_PATH}/about/" || true)
+redirect=$(http_location "http://127.0.0.1${BASE_PATH}/about/" "$PUBLIC_IP" || true)
 if [ "$redirect" != "${BASE_PATH}/about" ]; then
   echo "Trailing-slash redirect went to '${redirect}' instead of ${BASE_PATH}/about. Restoring $BACKUP"
   cp -a "$BACKUP" "$NGINX_TARGET"
@@ -374,5 +435,6 @@ fi
 
 echo
 echo "Bharat Space is live at http://${PUBLIC_IP}${BASE_PATH}"
+echo "No other web application was stopped."
 echo "Other nginx locations were checked and their status codes did not change."
 echo "Logs: journalctl -u ${SERVICE_NAME} -n 50 --no-pager"
