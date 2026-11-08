@@ -258,9 +258,11 @@ elif [ "${#NGINX_FILES[@]}" -eq 1 ]; then
   NGINX_TARGET="${NGINX_FILES[0]}"
 elif [ "${#NGINX_FILES[@]}" -eq 0 ]; then
   echo "The app is running on 127.0.0.1:${PORT}${BASE_PATH}"
-  echo "Could not find the nginx file that contains the other sites."
-  echo "Paste the contents of deploy/nginx-bharat.conf inside that server { } block, then run: nginx -t && systemctl reload nginx"
-  exit 1
+  echo "Looking through the live nginx configuration for the port 80 server."
+  if ! NGINX_TARGET=$(python3 "$APP_DIR/deploy/insert_nginx_include.py" --find); then
+    echo "Could not find the nginx server block. Nothing else was changed."
+    exit 1
+  fi
 else
   echo "More than one nginx file contains the existing sites:"
   printf '  %s\n' "${NGINX_FILES[@]}"
