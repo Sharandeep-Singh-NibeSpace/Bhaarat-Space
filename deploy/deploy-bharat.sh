@@ -110,13 +110,62 @@ cd "$APP_DIR"
 export NEXT_PUBLIC_BASE_PATH="$BASE_PATH"
 # Do not set NODE_ENV=production here. npm would skip Tailwind and PostCSS,
 # which the production build needs.
-npm ci --no-audit --no-fund
-npm run build
+if [ "${REBUILD:-0}" != "1" ] \
+  && [ -f "$APP_DIR/node_modules/next/package.json" ] \
+  && [ -f "$APP_DIR/.next/required-server-files.json" ] \
+  && "$NODE_BIN" -e 'const fs=require("fs"); const j=JSON.parse(fs.readFileSync(process.argv[1],"utf8")); process.exit(j.config && j.config.basePath==="/Bharat" ? 0 : 1);' "$APP_DIR/.next/required-server-files.json"
+then
+  echo "Existing /Bharat build found. Skipping npm ci and next build."
+else
+  npm ci --no-audit --no-fund
+  npm run build
+fi
 
 if [ ! -d "$APP_DIR/.next" ]; then
   echo "next build did not produce .next"
   exit 1
 fi
+
+# Ask Node, not curl. On this VPS curl could not open 127.0.0.1:3010 even
+# while Next.js was listening, so the first run stopped before nginx changed.
+http_code() {
+  "$NODE_BIN" -e '
+    const http = require("http");
+    const req = http.get(process.argv[1], (res) => {
+      res.resume();
+      process.stdout.write(String(res.statusCode));
+    });
+    req.on("error", () => process.stdout.write("err"));
+    req.setTimeout(20000, () => { req.destroy(); process.stdout.write("err"); });
+  ' "$1"
+}
+
+http_body() {
+  "$NODE_BIN" -e '
+    const http = require("http");
+    const req = http.get(process.argv[1], (res) => {
+      let body = "";
+      res.setEncoding("utf8");
+      res.on("data", (chunk) => { if (body.length < 400000) body += chunk; });
+      res.on("end", () => process.stdout.write(body));
+    });
+    req.on("error", () => process.exit(1));
+    req.setTimeout(20000, () => { req.destroy(); process.exit(1); });
+  ' "$1"
+}
+
+http_location() {
+  "$NODE_BIN" -e '
+    const http = require("http");
+    const req = http.get(process.argv[1], (res) => {
+      res.resume();
+      const value = res.headers.location || "";
+      process.stdout.write(Array.isArray(value) ? value[0] : value);
+    });
+    req.on("error", () => process.stdout.write(""));
+    req.setTimeout(20000, () => { req.destroy(); });
+  ' "$1"
+}
 
 if id www-data >/dev/null 2>&1 && [[ "$NODE_BIN" != /root/* ]]; then
   SERVICE_USER=www-data
@@ -139,6 +188,12 @@ sed \
 
 # Stop only this unit, then refuse to continue if something else owns the port.
 systemctl stop "$SERVICE_NAME" 2>/dev/null || true
+for _ in 1 2 3 4 5 6 7 8 9 10; do
+  if ! ss -ltn | awk '{print $4}' | grep -Eq "(^|:)${PORT}$"; then
+    break
+  fi
+  sleep 1
+done
 if ss -ltn | awk '{print $4}' | grep -Eq "(^|:)${PORT}$"; then
   echo "Port ${PORT} is already in use by another program. Nothing else was changed."
   ss -ltnp | grep ":${PORT}" || true
@@ -149,11 +204,10 @@ systemctl daemon-reload
 systemctl enable "$SERVICE_NAME"
 systemctl restart "$SERVICE_NAME"
 
-# Next serves pages at / on this port. The public /Bharat prefix is added by
-# nginx, and the HTML is already built with that prefix.
+# Next.js requires the /Bharat prefix. http://127.0.0.1:3010/ is a 404.
 ready=0
-for _ in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
-  if curl -fsS -o /dev/null --max-time 5 "http://127.0.0.1:${PORT}/"; then
+for _ in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20; do
+  if [ "$(http_code "http://127.0.0.1:${PORT}${BASE_PATH}")" = "200" ]; then
     ready=1
     break
   fi
@@ -161,22 +215,23 @@ for _ in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
 done
 
 if [ "$ready" -ne 1 ]; then
-  echo "Bharat Space did not answer on 127.0.0.1:${PORT}/"
+  echo "Bharat Space did not answer on 127.0.0.1:${PORT}${BASE_PATH}"
+  ss -ltnp | grep ":${PORT}" || true
   systemctl status "$SERVICE_NAME" --no-pager || true
   journalctl -u "$SERVICE_NAME" -n 40 --no-pager || true
   exit 1
 fi
 
-home_html=$(curl -fsS --max-time 20 "http://127.0.0.1:${PORT}/")
+home_html=$(http_body "http://127.0.0.1:${PORT}${BASE_PATH}")
 if ! grep -q "${BASE_PATH}/_next/" <<<"$home_html"; then
   echo "The build is not prefixed with ${BASE_PATH}. nginx was not changed."
   exit 1
 fi
 
 for path in /about /contact /image-analytics /test /images/EO.avif; do
-  code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 "http://127.0.0.1:${PORT}${path}")
+  code=$(http_code "http://127.0.0.1:${PORT}${BASE_PATH}${path}")
   if [ "$code" != "200" ]; then
-    echo "Expected 200 from http://127.0.0.1:${PORT}${path} but got ${code}. nginx was not changed."
+    echo "Expected 200 from http://127.0.0.1:${PORT}${BASE_PATH}${path} but got ${code}. nginx was not changed."
     exit 1
   fi
 done
@@ -246,7 +301,7 @@ EXISTING_PATHS=(
 snapshot_codes() {
   local path code
   for path in "${EXISTING_PATHS[@]}"; do
-    code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 "http://127.0.0.1${path}" || echo "err")
+    code=$(http_code "http://127.0.0.1${path}")
     printf '%s %s\n' "$code" "$path"
   done
 }
@@ -280,7 +335,7 @@ if [ "$BEFORE_CODES" != "$AFTER_CODES" ]; then
   exit 1
 fi
 
-public_html=$(curl -fsS --max-time 20 "http://127.0.0.1${BASE_PATH}" || true)
+public_html=$(http_body "http://127.0.0.1${BASE_PATH}" || true)
 if ! grep -q "${BASE_PATH}/_next/" <<<"$public_html"; then
   echo "http://127.0.0.1${BASE_PATH} did not serve Bharat Space. Restoring $BACKUP"
   cp -a "$BACKUP" "$NGINX_TARGET"
@@ -296,7 +351,7 @@ for path in \
   "${BASE_PATH}/test" \
   "${BASE_PATH}/images/EO.avif"
 do
-  code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 "http://127.0.0.1${path}")
+  code=$(http_code "http://127.0.0.1${path}")
   if [ "$code" != "200" ]; then
     echo "http://127.0.0.1${path} returned ${code} through nginx. Restoring $BACKUP"
     cp -a "$BACKUP" "$NGINX_TARGET"
@@ -306,7 +361,7 @@ do
   fi
 done
 
-redirect=$(curl -sI --max-time 20 "http://127.0.0.1${BASE_PATH}/about/" | awk 'tolower($1)=="location:" {print $2}' | tr -d '\r' || true)
+redirect=$(http_location "http://127.0.0.1${BASE_PATH}/about/" || true)
 if [ "$redirect" != "${BASE_PATH}/about" ]; then
   echo "Trailing-slash redirect went to '${redirect}' instead of ${BASE_PATH}/about. Restoring $BACKUP"
   cp -a "$BACKUP" "$NGINX_TARGET"
