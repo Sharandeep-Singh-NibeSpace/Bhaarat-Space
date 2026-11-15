@@ -109,18 +109,11 @@ echo "Using Node $(node -v) at $NODE_BIN"
 
 cd "$APP_DIR"
 export NEXT_PUBLIC_BASE_PATH="$BASE_PATH"
-# Do not set NODE_ENV=production here. npm would skip Tailwind and PostCSS,
-# which the production build needs.
-if [ "${REBUILD:-0}" != "1" ] \
-  && [ -f "$APP_DIR/node_modules/next/package.json" ] \
-  && [ -f "$APP_DIR/.next/required-server-files.json" ] \
-  && "$NODE_BIN" -e 'const fs=require("fs"); const j=JSON.parse(fs.readFileSync(process.argv[1],"utf8")); process.exit(j.config && j.config.basePath==="/Bharat" ? 0 : 1);' "$APP_DIR/.next/required-server-files.json"
-then
-  echo "Existing /Bharat build found. Skipping npm ci and next build."
-else
-  npm ci --no-audit --no-fund
-  npm run build
-fi
+# Always install and build the copied/pulled source. Checking only the
+# existing build's basePath can leave old application code running after a
+# deploy, even when the source files have changed.
+npm ci --no-audit --no-fund
+npm run build
 
 if [ ! -d "$APP_DIR/.next" ]; then
   echo "next build did not produce .next"

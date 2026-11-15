@@ -177,6 +177,7 @@ function FeatureRow({ feature, index }) {
         alt={title}
         width={800}
         height={500}
+        unoptimized
         className="w-full h-auto object-cover"
         priority={index === 0}
       />
