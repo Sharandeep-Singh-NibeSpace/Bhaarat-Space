@@ -209,14 +209,15 @@ port_busy() {
   ss -ltn | awk '{print $4}' | grep -Eq "(^|:)$1$"
 }
 
-# Leave a healthy Bharat Space process running. Never stop another unit.
+# Reuse the current Bharat Space port when healthy, then restart this unit
+# after building so it loads the newly generated .next output.
 ALREADY_UP=0
 if systemctl is-active --quiet "$SERVICE_NAME"; then
   running_port=$(systemctl show -p ExecStart --value "$SERVICE_NAME" 2>/dev/null | grep -oE '\-p[[:space:]]*[0-9]+' | grep -oE '[0-9]+' | head -n 1 || true)
   if [ -n "${running_port:-}" ] && [ "$(http_code "http://127.0.0.1:${running_port}${BASE_PATH}")" = "200" ]; then
     PORT="$running_port"
     ALREADY_UP=1
-    echo "Bharat Space is already running on 127.0.0.1:${PORT}. It will not be restarted."
+    echo "Bharat Space is already running on 127.0.0.1:${PORT}. It will be restarted with the new build."
   fi
 fi
 
@@ -257,7 +258,8 @@ sed \
 
 if [ "$ALREADY_UP" -eq 1 ]; then
   systemctl daemon-reload
-  echo "Other web applications were not stopped."
+  systemctl restart "$SERVICE_NAME"
+  echo "Restarted Bharat Space with the new build. Other web applications were not stopped."
 else
   systemctl daemon-reload
   systemctl enable "$SERVICE_NAME"
