@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Eyebrow, AnimatedText, EASE_SMOOTH } from "./ui";
+import { publicPath } from "@/lib/publicPath";
 
 // Add your image paths here (public/images/ or any folder)
 const FEATURE_IMAGES = {
@@ -172,7 +173,7 @@ function FeatureRow({ feature, index }) {
       className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl"
     >
       <Image
-        src={staticImageSrc}
+        src={publicPath(staticImageSrc)}
         alt={title}
         width={800}
         height={500}
